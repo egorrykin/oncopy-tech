@@ -1,0 +1,1801 @@
+<!-- oncopy_tech/templates/oncopy_tech/index.html -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Oncopy — Ремонт принтеров Kyocera в Москве | Диагностика бесплатно</title>
+    <meta name="description" content="Профессиональный ремонт принтеров и МФУ Kyocera. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (495) 978-00-87">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <meta name="theme-color" content="#0a0b14">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Yandex SmartCaptcha -->
+    <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
+
+    <style>
+        :root {
+            --bg: #0a0b14;
+            --surface: rgba(255, 255, 255, 0.025);
+            --surface-hover: rgba(255, 255, 255, 0.045);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.14);
+
+            --text: #ffffff;
+            --text-2: #b4b9d4;
+            --text-3: #7c82a3;
+            --text-4: #565c7c;
+
+            --brand-1: #6366f1;
+            --brand-2: #8b5cf6;
+            --brand-3: #a855f7;
+            --success: #10b981;
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.25);
+            --shadow-md: 0 2px 4px rgba(0,0,0,0.35), 0 6px 12px rgba(0,0,0,0.3), 0 12px 24px rgba(0,0,0,0.2);
+            --shadow-lg: 0 4px 8px rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.35), 0 24px 48px rgba(0,0,0,0.25);
+            --shadow-xl: 0 8px 16px rgba(0,0,0,0.45), 0 24px 48px rgba(0,0,0,0.4), 0 48px 96px rgba(0,0,0,0.3);
+
+            --inner-light: inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============ ФОН ============ */
+        .bg-fx {
+            position: fixed; inset: 0; z-index: -3;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%),
+                radial-gradient(ellipse 60% 40% at 10% 30%, rgba(168, 85, 247, 0.08), transparent 60%),
+                radial-gradient(ellipse 50% 30% at 90% 70%, rgba(139, 92, 246, 0.06), transparent 60%),
+                linear-gradient(180deg, #0a0b14 0%, #0c0e1a 50%, #0a0b14 100%);
+        }
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -2; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 90%);
+            -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 90%);
+        }
+
+        .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+        /* ============ ВЕРХНЯЯ ПОЛОСА ============ */
+        .topbar {
+            background: linear-gradient(90deg, rgba(99,102,241,0.15), rgba(168,85,247,0.15));
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 8px 0; font-size: 13px; color: var(--text-2);
+        }
+        .topbar-in {
+            display: flex; justify-content: center; align-items: center;
+            gap: 24px; flex-wrap: wrap; text-align: center;
+        }
+        .topbar-in .item { display: inline-flex; align-items: center; gap: 6px; }
+        .topbar-in .item b { color: var(--text); font-weight: 700; }
+
+        /* ============ ШАПКА ============ */
+        .header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10, 11, 20, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+        .header-in {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 20px; flex-wrap: wrap;
+        }
+
+        /* ===== ЛОГОТИПЫ В СВЕТЛЫХ КАРТОЧКАХ ===== */
+        .logo-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+        }
+
+        .logo-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 8px 16px;
+            height: 58px;
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.35),
+                0 2px 6px rgba(0,0,0,0.25),
+                inset 0 -1px 0 rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.9);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .logo-card:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 8px 20px rgba(0,0,0,0.4),
+                0 4px 10px rgba(0,0,0,0.3),
+                inset 0 -1px 0 rgba(0,0,0,0.05);
+        }
+        .logo-card img {
+            display: block;
+            height: 40px;
+            width: auto;
+            max-width: 160px;
+            object-fit: contain;
+        }
+        .logo-card.oncopy img { height: 42px; max-width: 150px; }
+        .logo-card.kyocera img { height: 34px; max-width: 170px; }
+
+        .collab {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface);
+            border: 1px solid var(--border-strong);
+            position: relative;
+            box-shadow: var(--inner-light);
+            flex-shrink: 0;
+        }
+        .collab::before, .collab::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
+        }
+        .collab::before { transform: rotate(45deg); }
+        .collab::after { transform: rotate(-45deg); }
+
+        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .phone-link {
+            display: inline-flex; align-items: center; gap: 10px;
+            text-decoration: none; color: var(--text);
+            font-weight: 700; font-size: 17px; transition: color 0.2s;
+        }
+        .phone-link:hover { color: var(--brand-2); }
+        .phone-link .meta { display: flex; flex-direction: column; line-height: 1.15; }
+        .phone-link .meta small { font-size: 11px; font-weight: 400; color: var(--text-3); }
+
+        .btn-call {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 18px; border-radius: 100px;
+            background: var(--surface); border: 1px solid var(--border-strong);
+            color: var(--text); font-weight: 600; font-size: 14px;
+            text-decoration: none; transition: all 0.25s;
+            box-shadow: var(--inner-light);
+        }
+        .btn-call:hover {
+            background: var(--surface-hover); transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
+        }
+
+        /* ============ HERO ============ */
+        .hero { padding: 50px 0 70px; position: relative; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px 420px;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .hero-left .tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 7px 14px; background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 100px; font-size: 13px; color: #6ee7b7;
+            font-weight: 600; margin-bottom: 20px;
+        }
+        .tag .pulse {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero h1 {
+            font-size: 44px; font-weight: 900; line-height: 1.05;
+            letter-spacing: -1.6px; margin-bottom: 18px;
+        }
+        .hero h1 .accent {
+            background: linear-gradient(120deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: 16px; color: var(--text-2); line-height: 1.6;
+            max-width: 420px; margin-bottom: 26px;
+        }
+
+        .hero-usp { display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
+        .usp-item { display: flex; align-items: center; gap: 11px; font-size: 14px; color: var(--text-2); }
+        .usp-item .check {
+            flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: #fff; font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .usp-item b { color: var(--text); font-weight: 700; }
+
+        .hero-stats-inline {
+            display: flex; gap: 24px; padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+        .hstat { display: flex; flex-direction: column; gap: 2px; }
+        .hstat .v {
+            font-size: 26px; font-weight: 900; letter-spacing: -0.8px;
+            background: linear-gradient(120deg, #ffffff 0%, #b4b9d4 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hstat .l { font-size: 12px; color: var(--text-3); }
+
+        /* ============ ПРИНТЕР ============ */
+        .hero-printer-col {
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 340px;
+        }
+        .hero-printer-col::before {
+            content: '';
+            position: absolute;
+            width: 280px; height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent 65%);
+            filter: blur(50px);
+            z-index: -1;
+            animation: pulseGlow 6s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { opacity: 0.6; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+        .hero-printer-col img {
+            width: 100%; max-width: 320px; height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 30px 50px rgba(99, 102, 241, 0.4));
+            animation: floatY 6s ease-in-out infinite;
+        }
+        @keyframes floatY {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-16px); }
+        }
+
+        /* ============ ФОРМА ============ */
+        .form-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            border: 1px solid var(--border-strong);
+            border-radius: 24px;
+            padding: 32px 28px;
+            box-shadow: var(--shadow-xl), var(--inner-light);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            overflow: hidden;
+        }
+        .form-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--brand-1), var(--brand-3), #ec4899);
+        }
+
+        .form-card h3 {
+            font-size: 22px; font-weight: 800;
+            letter-spacing: -0.5px; margin-bottom: 8px;
+        }
+        .form-card .desc {
+            font-size: 13px; color: var(--text-2);
+            margin-bottom: 20px; line-height: 1.5;
+        }
+
+        .field { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+        .field label {
+            font-size: 12px; font-weight: 600; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .field input {
+            width: 100%; padding: 15px 18px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 14px; color: var(--text);
+            font-size: 16px; font-weight: 600; font-family: inherit;
+            outline: none; transition: all 0.2s;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+        }
+        .field input::placeholder { color: var(--text-4); font-weight: 400; }
+        .field input:focus {
+            border-color: rgba(99, 102, 241, 0.6);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        /* ===== КАПЧА ===== */
+        .captcha-field {
+            margin-bottom: 14px;
+        }
+        .captcha-field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .smart-captcha {
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 18px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border: none; border-radius: 14px;
+            color: #fff; font-size: 16px; font-weight: 800;
+            font-family: inherit; letter-spacing: 0.3px;
+            cursor: pointer; transition: all 0.25s;
+            position: relative; overflow: hidden;
+            box-shadow: var(--inner-light),
+                0 4px 8px rgba(99, 102, 241, 0.3),
+                0 12px 24px rgba(99, 102, 241, 0.35);
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--inner-light),
+                0 6px 12px rgba(99, 102, 241, 0.4),
+                0 20px 40px rgba(99, 102, 241, 0.45);
+        }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-submit::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        .btn-submit:hover::after { left: 100%; }
+
+        .form-privacy {
+            font-size: 11px; color: var(--text-4);
+            margin-top: 12px; line-height: 1.5; text-align: center;
+        }
+        .form-privacy a {
+            color: var(--text-3); text-decoration: none;
+            border-bottom: 1px dotted var(--text-4);
+        }
+        .form-privacy a:hover { color: var(--brand-2); }
+
+        .form-response { margin-top: 10px; font-size: 13px; text-align: center; min-height: 18px; }
+
+        .form-trust {
+            display: flex; align-items: center; justify-content: center;
+            gap: 14px; margin-top: 16px; padding-top: 16px;
+            border-top: 1px solid var(--border); flex-wrap: wrap;
+        }
+        .form-trust .t-item {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--text-3);
+        }
+        .form-trust .t-item svg { width: 13px; height: 13px; }
+
+        /* ============ СТРИП ДОВЕРИЯ ============ */
+        .trust-strip {
+            padding: 40px 0; border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+        }
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .trust-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 20px; background: var(--surface);
+            border: 1px solid var(--border); border-radius: 16px;
+            box-shadow: var(--shadow-md), var(--inner-light);
+            transition: all 0.25s;
+        }
+        .trust-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: var(--shadow-lg), var(--inner-light);
+        }
+        .trust-item .ico {
+            flex-shrink: 0; width: 48px; height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.15));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+        }
+        .trust-item .txt { display: flex; flex-direction: column; gap: 2px; }
+        .trust-item .txt b { font-size: 15px; font-weight: 700; color: var(--text); }
+        .trust-item .txt span { font-size: 13px; color: var(--text-3); }
+
+        /* ============ СЕКЦИИ ============ */
+        .section { padding: 80px 0; }
+        .section-head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+        .section-head .eyebrow {
+            display: inline-block; font-size: 12px; font-weight: 700;
+            color: var(--brand-2); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 12px;
+        }
+        .section-head h2 {
+            font-size: 44px; font-weight: 900;
+            letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+        }
+        .section-head h2 .accent {
+            background: linear-gradient(120deg, #6366f1, #a855f7);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-head p { font-size: 17px; color: var(--text-2); line-height: 1.6; }
+
+        /* ============ УСЛУГИ ============ */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .service-card {
+            padding: 28px 24px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+            border: 1px solid var(--border); border-radius: 18px;
+            box-shadow: var(--shadow-md), var(--inner-light);
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .service-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(99, 102, 241, 0.08), transparent 40%);
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .service-card:hover::before { opacity: 1; }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: var(--shadow-xl), var(--inner-light), 0 0 0 1px rgba(99, 102, 241, 0.1);
+        }
+        .service-card .ico {
+            width: 52px; height: 52px; border-radius: 14px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,85,247,0.1));
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; margin-bottom: 18px;
+            box-shadow: var(--inner-light);
+        }
+        .service-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+        .service-card p { font-size: 14px; color: var(--text-3); line-height: 1.5; }
+        .service-card .price {
+            display: inline-block; margin-top: 16px;
+            padding: 6px 14px; background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 100px; font-size: 13px;
+            font-weight: 700; color: #6ee7b7;
+        }
+
+        /* ============ ПОЧЕМУ МЫ ============ */
+        .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+        .why-visual {
+            position: relative; padding: 40px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(168,85,247,0.05));
+            border: 1px solid var(--border); border-radius: 24px;
+            box-shadow: var(--shadow-lg), var(--inner-light);
+            display: flex; flex-direction: column; justify-content: center;
+            overflow: hidden;
+        }
+        .why-visual::before {
+            content: ''; position: absolute;
+            top: -50%; right: -50%; width: 100%; height: 200%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 60%);
+            animation: float 12s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-5%, 5%); }
+        }
+        .why-visual h3 {
+            position: relative; font-size: 28px; font-weight: 900;
+            letter-spacing: -1px; margin-bottom: 24px; line-height: 1.2;
+        }
+        .why-visual h3 span {
+            background: linear-gradient(120deg, #6366f1, #a855f7);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .why-list { position: relative; display: flex; flex-direction: column; gap: 16px; }
+        .why-list li {
+            display: flex; align-items: flex-start; gap: 14px;
+            list-style: none; font-size: 15px;
+            color: var(--text-2); line-height: 1.5;
+        }
+        .why-list li .chk {
+            flex-shrink: 0; margin-top: 1px;
+            width: 24px; height: 24px; border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; color: #fff; font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3), 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        .why-list li b { color: var(--text); font-weight: 700; }
+
+        .why-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .why-card {
+            padding: 24px 20px; background: var(--surface);
+            border: 1px solid var(--border); border-radius: 18px;
+            box-shadow: var(--shadow-md), var(--inner-light);
+            transition: all 0.25s;
+        }
+        .why-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: var(--shadow-lg), var(--inner-light);
+        }
+        .why-card .ico { font-size: 28px; margin-bottom: 12px; display: block; }
+        .why-card h5 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+        .why-card p { font-size: 13px; color: var(--text-3); line-height: 1.5; }
+
+        /* ============ ОТЗЫВЫ ============ */
+        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .review-card {
+            padding: 26px 24px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+            border: 1px solid var(--border); border-radius: 18px;
+            box-shadow: var(--shadow-md), var(--inner-light);
+            display: flex; flex-direction: column; gap: 16px;
+            transition: all 0.25s;
+        }
+        .review-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: var(--shadow-lg), var(--inner-light);
+        }
+        .review-stars { display: flex; gap: 3px; color: #fbbf24; font-size: 16px; }
+        .review-text { font-size: 14px; color: var(--text-2); line-height: 1.65; flex-grow: 1; }
+        .review-author {
+            display: flex; align-items: center; gap: 12px;
+            padding-top: 16px; border-top: 1px solid var(--border);
+        }
+        .review-avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--brand-1), var(--brand-3));
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 16px; color: #fff;
+            box-shadow: var(--inner-light), 0 2px 8px rgba(99, 102, 241, 0.3);
+        }
+        .review-author .meta { display: flex; flex-direction: column; gap: 2px; }
+        .review-author .meta b { font-size: 14px; font-weight: 700; color: var(--text); }
+        .review-author .meta span { font-size: 12px; color: var(--text-3); }
+
+        /* ============ КАРТРИДЖИ ============ */
+        .cartridge {
+            display: grid; grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px; align-items: center;
+            padding: 48px 48px;
+            background: linear-gradient(135deg, rgba(34,211,238,0.05), rgba(99,102,241,0.08));
+            border: 1px solid var(--border-strong); border-radius: 28px;
+            box-shadow: var(--shadow-xl), var(--inner-light);
+            position: relative; overflow: hidden;
+        }
+        .cartridge::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 90% 50%, rgba(34, 211, 238, 0.12), transparent 50%);
+            pointer-events: none;
+        }
+        .cartridge-info { position: relative; z-index: 1; }
+        .cartridge-info .tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 14px; background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 100px; font-size: 12px;
+            font-weight: 700; color: #6ee7b7; margin-bottom: 16px;
+        }
+        .cartridge-info h3 {
+            font-size: 32px; font-weight: 900;
+            letter-spacing: -1px; line-height: 1.15; margin-bottom: 14px;
+        }
+        .cartridge-info h3 span {
+            background: linear-gradient(120deg, #22d3ee, #6366f1);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cartridge-info > p {
+            font-size: 16px; color: var(--text-2);
+            line-height: 1.65; margin-bottom: 24px; max-width: 480px;
+        }
+        .cartridge-benefits {
+            list-style: none; display: flex; flex-direction: column;
+            gap: 12px; margin-bottom: 28px;
+        }
+        .cartridge-benefits li {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 15px; color: var(--text-2);
+        }
+        .cartridge-benefits li .chk {
+            flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #fff; font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .btn-cartridge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none; border-radius: 14px; color: #fff;
+            font-weight: 800; font-size: 16px;
+            text-decoration: none; cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: var(--inner-light),
+                0 4px 8px rgba(99, 102, 241, 0.3),
+                0 12px 24px rgba(99, 102, 241, 0.35);
+        }
+        .btn-cartridge:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--inner-light),
+                0 6px 12px rgba(99, 102, 241, 0.4),
+                0 20px 40px rgba(99, 102, 241, 0.45);
+        }
+        .cartridge-visual {
+            position: relative; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
+            min-height: 260px;
+        }
+        .cartridge-visual img {
+            width: 100%; max-width: 320px; height: auto;
+            filter: drop-shadow(0 30px 60px rgba(34, 211, 238, 0.35));
+            animation: floatY 6s ease-in-out infinite;
+        }
+
+        /* ============ ПРАЙС ============ */
+        .price-table {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            border: 1px solid var(--border); border-radius: 24px;
+            overflow: hidden; box-shadow: var(--shadow-lg), var(--inner-light);
+        }
+        .price-row {
+            display: grid; grid-template-columns: 60px 1fr 200px;
+            align-items: center; padding: 24px 32px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+        .price-row:last-child { border-bottom: none; }
+        .price-row:hover { background: rgba(255, 255, 255, 0.02); }
+        .price-row .num {
+            font-size: 15px; font-weight: 700;
+            color: var(--text-4); font-variant-numeric: tabular-nums;
+        }
+        .price-row .name { display: flex; flex-direction: column; gap: 3px; }
+        .price-row .name b { font-size: 17px; font-weight: 700; color: var(--text); }
+        .price-row .name span { font-size: 13px; color: var(--text-3); }
+        .price-row .amount {
+            font-size: 24px; font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #ffffff, #b4b9d4);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: right;
+        }
+        .price-row .amount small {
+            font-size: 14px; font-weight: 500; color: var(--text-3);
+            -webkit-text-fill-color: var(--text-3); margin-right: 4px;
+        }
+        .price-note {
+            padding: 18px 32px; background: rgba(99, 102, 241, 0.05);
+            border-top: 1px solid var(--border);
+            font-size: 13px; color: var(--text-3); text-align: center;
+        }
+
+        /* ============ FAQ ============ */
+        .faq-list { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+        .faq-item {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: var(--shadow-md), var(--inner-light);
+            transition: all 0.25s;
+        }
+        .faq-item.open {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: var(--shadow-lg), var(--inner-light);
+        }
+        .faq-q {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; padding: 22px 24px;
+            cursor: pointer; user-select: none;
+            font-size: 17px; font-weight: 600; color: var(--text);
+            transition: color 0.2s;
+        }
+        .faq-q:hover { color: var(--brand-2); }
+        .faq-q .ic {
+            flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%;
+            background: var(--surface); border: 1px solid var(--border-strong);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--brand-2); font-weight: 400;
+            transition: all 0.3s; box-shadow: var(--inner-light);
+        }
+        .faq-item.open .faq-q .ic {
+            transform: rotate(45deg);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff; border-color: transparent;
+        }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .faq-item.open .faq-a { max-height: 400px; padding: 0 24px 22px; }
+        .faq-a p { font-size: 15px; color: var(--text-2); line-height: 1.7; }
+
+        /* ============ ФИНАЛЬНЫЙ CTA ============ */
+        .final-cta {
+            padding: 60px 48px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.1));
+            border: 1px solid var(--border-strong); border-radius: 32px;
+            box-shadow: var(--shadow-xl), var(--inner-light);
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .final-cta::before {
+            content: ''; position: absolute;
+            top: -50%; left: 50%; width: 200%; height: 200%;
+            transform: translateX(-50%);
+            background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.15), transparent 50%);
+            animation: float 15s ease-in-out infinite;
+        }
+        .final-cta-in { position: relative; z-index: 1; }
+        .final-cta h2 {
+            font-size: 40px; font-weight: 900;
+            letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 16px;
+        }
+        .final-cta h2 span {
+            background: linear-gradient(120deg, #6366f1, #ec4899);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .final-cta p {
+            font-size: 17px; color: var(--text-2);
+            margin-bottom: 32px; max-width: 560px;
+            margin-left: auto; margin-right: auto; line-height: 1.6;
+        }
+        .final-cta .btn-final {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 18px 44px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none; border-radius: 100px; color: #fff;
+            font-weight: 800; font-size: 17px;
+            text-decoration: none; cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: var(--inner-light),
+                0 8px 16px rgba(99, 102, 241, 0.35),
+                0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+        .final-cta .btn-final:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--inner-light),
+                0 12px 24px rgba(99, 102, 241, 0.45),
+                0 32px 60px rgba(99, 102, 241, 0.4);
+        }
+
+        /* ============ ФУТЕР ============ */
+        .footer { padding: 60px 0 30px; border-top: 1px solid var(--border); margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 40px; }
+        .footer-col h6 {
+            font-size: 13px; font-weight: 700; color: var(--text-3);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px;
+        }
+        .footer-col p, .footer-col a {
+            display: block; font-size: 14px; color: var(--text-2);
+            line-height: 1.7; text-decoration: none;
+            transition: color 0.2s; margin-bottom: 6px;
+        }
+        .footer-col a:hover { color: var(--brand-2); }
+        .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+        .footer-logo-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .footer-logo-card img {
+            height: 32px;
+            width: auto;
+            max-width: 130px;
+            display: block;
+        }
+        .footer-bottom {
+            padding-top: 24px; border-top: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 20px; flex-wrap: wrap; font-size: 13px; color: var(--text-4);
+        }
+
+        /* ============ STICKY MOBILE CTA ============ */
+        .sticky-cta {
+            display: none; position: fixed;
+            bottom: 16px; left: 16px; right: 16px;
+            z-index: 999; padding: 4px;
+            background: rgba(10, 11, 20, 0.9);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border-strong);
+            border-radius: 100px; box-shadow: var(--shadow-xl);
+        }
+        .sticky-cta-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 8px; width: 100%; padding: 16px 20px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 100px; color: #fff;
+            font-weight: 800; font-size: 15px;
+            text-decoration: none;
+            box-shadow: var(--inner-light), 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px;
+            padding: 16px 24px;
+            background: rgba(20, 21, 42, 0.95);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid var(--border-strong);
+            border-radius: 14px; color: #fff;
+            font-weight: 600; font-size: 14px;
+            transform: translateY(120px); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 2000; max-width: 400px; box-shadow: var(--shadow-xl);
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-left: 4px solid #10b981; }
+        .toast.error { border-left: 4px solid #ef4444; }
+
+        .spinner {
+            display: inline-block; width: 18px; height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.25);
+            border-top-color: #fff; border-radius: 50%;
+            animation: spin 0.6s linear infinite; vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.in { opacity: 1; transform: translateY(0); }
+
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
+
+        @media (max-width: 1200px) {
+            .hero-grid { grid-template-columns: 1fr 280px 400px; gap: 26px; }
+            .hero h1 { font-size: 40px; }
+            .hero-printer-col img { max-width: 260px; }
+        }
+
+        @media (max-width: 1100px) {
+            .hero-grid { grid-template-columns: 1fr 240px 380px; gap: 24px; }
+            .hero h1 { font-size: 36px; }
+            .hero .subtitle { font-size: 15px; }
+            .hero-printer-col img { max-width: 220px; }
+        }
+
+        @media (max-width: 968px) {
+            .hero { padding: 40px 0 60px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-left { text-align: center; }
+            .hero h1 { font-size: 40px; letter-spacing: -1.3px; }
+            .hero .subtitle { font-size: 16px; margin-left: auto; margin-right: auto; }
+            .hero-usp { align-items: center; }
+            .hero-stats-inline { justify-content: center; }
+            .hero-printer-col { min-height: 260px; }
+            .hero-printer-col img { max-width: 280px; }
+
+            .section { padding: 60px 0; }
+            .section-head h2 { font-size: 34px; }
+            .section-head p { font-size: 15px; }
+            .trust-grid { grid-template-columns: 1fr 1fr; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .cartridge { grid-template-columns: 1fr; padding: 36px 28px; gap: 24px; }
+            .cartridge-visual { order: -1; min-height: 200px; }
+            .cartridge-visual img { max-width: 240px; }
+            .cartridge-info h3 { font-size: 26px; }
+            .price-row { grid-template-columns: 40px 1fr 140px; padding: 20px 24px; }
+            .price-row .amount { font-size: 20px; }
+            .final-cta { padding: 44px 28px; }
+            .final-cta h2 { font-size: 30px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .header-in { gap: 14px; }
+            .logo-row { gap: 8px; }
+            .logo-card {
+                height: 48px;
+                padding: 6px 12px;
+                border-radius: 12px;
+            }
+            .logo-card.oncopy img { height: 34px; max-width: 120px; }
+            .logo-card.kyocera img { height: 26px; max-width: 130px; }
+            .collab { width: 26px; height: 26px; }
+            .collab::before, .collab::after { width: 10px; height: 1.8px; }
+
+            .header-cta { gap: 10px; }
+            .phone-link { font-size: 15px; }
+            .btn-call { display: none; }
+        }
+
+        @media (max-width: 640px) {
+            .topbar { font-size: 12px; padding: 6px 0; }
+            .topbar-in { gap: 12px; }
+
+            .header { padding: 10px 0; }
+            .header-in {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            .logo-row { justify-content: center; gap: 8px; }
+            .logo-card {
+                height: 46px;
+                padding: 5px 12px;
+                border-radius: 11px;
+            }
+            .logo-card.oncopy img { height: 32px; max-width: 110px; }
+            .logo-card.kyocera img { height: 24px; max-width: 120px; }
+            .collab { width: 24px; height: 24px; }
+            .collab::before, .collab::after { width: 9px; height: 1.8px; }
+
+            .header-cta { width: 100%; justify-content: center; }
+            .phone-link {
+                font-size: 15px;
+                padding: 8px 16px;
+                background: var(--surface);
+                border: 1px solid var(--border-strong);
+                border-radius: 100px;
+                box-shadow: var(--inner-light);
+                width: 100%;
+                justify-content: center;
+            }
+            .phone-link .meta small { display: none; }
+
+            .hero { padding: 24px 0 40px; }
+            .hero-grid { gap: 28px; }
+            .hero h1 { font-size: 32px; letter-spacing: -1.1px; line-height: 1.1; }
+            .hero .subtitle { font-size: 15px; margin-bottom: 20px; }
+            .hero-usp { gap: 10px; margin-bottom: 20px; }
+            .usp-item { font-size: 13px; }
+            .usp-item .check { width: 20px; height: 20px; font-size: 11px; }
+            .hero-stats-inline { padding-top: 18px; gap: 18px; }
+            .hstat .v { font-size: 22px; }
+            .hstat .l { font-size: 11px; }
+
+            .hero-printer-col { min-height: 220px; }
+            .hero-printer-col img { max-width: 220px; }
+            .hero-printer-col::before { width: 200px; height: 200px; }
+
+            .form-card { padding: 24px 20px; border-radius: 20px; }
+            .form-card h3 { font-size: 20px; }
+            .form-card .desc { font-size: 13px; margin-bottom: 18px; }
+            .field input { padding: 14px 16px; font-size: 16px; }
+            .btn-submit { padding: 17px 20px; font-size: 15px; }
+            .form-trust { gap: 10px; padding-top: 14px; margin-top: 14px; }
+            .form-trust .t-item { font-size: 11px; }
+
+            .section { padding: 44px 0; }
+            .section-head { margin-bottom: 32px; }
+            .section-head h2 { font-size: 26px; letter-spacing: -0.8px; }
+            .section-head p { font-size: 14px; }
+
+            .trust-grid { grid-template-columns: 1fr; gap: 12px; }
+            .trust-item { padding: 16px; }
+            .trust-item .ico { width: 42px; height: 42px; font-size: 20px; }
+            .trust-item .txt b { font-size: 14px; }
+            .trust-item .txt span { font-size: 12px; }
+
+            .services-grid { grid-template-columns: 1fr; gap: 14px; }
+            .service-card { padding: 22px 18px; }
+            .service-card .ico { width: 46px; height: 46px; font-size: 22px; margin-bottom: 14px; }
+            .service-card h4 { font-size: 16px; }
+
+            .why-visual { padding: 28px 22px; }
+            .why-visual h3 { font-size: 22px; margin-bottom: 18px; }
+            .why-list li { font-size: 14px; }
+            .why-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .why-card { padding: 18px 16px; }
+            .why-card .ico { font-size: 24px; margin-bottom: 8px; }
+            .why-card h5 { font-size: 14px; }
+            .why-card p { font-size: 12px; }
+
+            .review-card { padding: 20px 18px; }
+
+            .cartridge { padding: 28px 20px; border-radius: 20px; gap: 20px; }
+            .cartridge-info h3 { font-size: 22px; }
+            .cartridge-info > p { font-size: 14px; margin-bottom: 18px; }
+            .cartridge-benefits { gap: 10px; margin-bottom: 22px; }
+            .cartridge-benefits li { font-size: 14px; }
+            .btn-cartridge { padding: 14px 24px; font-size: 15px; width: 100%; justify-content: center; }
+            .cartridge-visual img { max-width: 200px; }
+
+            .price-row { grid-template-columns: 30px 1fr auto; padding: 16px 18px; gap: 12px; }
+            .price-row .num { font-size: 13px; }
+            .price-row .name b { font-size: 15px; }
+            .price-row .name span { font-size: 12px; }
+            .price-row .amount { font-size: 17px; }
+            .price-row .amount small { font-size: 12px; }
+            .price-note { padding: 14px 18px; font-size: 12px; }
+
+            .faq-q { padding: 18px 18px; font-size: 15px; }
+            .faq-q .ic { width: 28px; height: 28px; font-size: 16px; }
+            .faq-item.open .faq-a { padding: 0 18px 18px; }
+            .faq-a p { font-size: 14px; }
+
+            .final-cta { padding: 36px 22px; border-radius: 24px; }
+            .final-cta h2 { font-size: 24px; letter-spacing: -0.8px; }
+            .final-cta p { font-size: 14px; margin-bottom: 24px; }
+            .final-cta .btn-final { padding: 16px 32px; font-size: 15px; width: 100%; justify-content: center; }
+
+            .footer { padding: 40px 0 100px; margin-top: 40px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; }
+            .footer-bottom { flex-direction: column; text-align: center; font-size: 12px; }
+
+            .sticky-cta { display: block; }
+            .toast { right: 12px; left: 12px; bottom: 100px; max-width: none; }
+
+            .smart-captcha { transform-origin: left top; }
+        }
+
+        @media (max-width: 380px) {
+            .logo-card { height: 42px; padding: 4px 10px; }
+            .logo-card.oncopy img { height: 28px; max-width: 95px; }
+            .logo-card.kyocera img { height: 22px; max-width: 100px; }
+            .collab { width: 22px; height: 22px; }
+            .collab::before, .collab::after { width: 8px; height: 1.6px; }
+            .logo-row { gap: 6px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-fx"></div>
+<div class="bg-grid"></div>
+
+<!-- ============ ВЕРХНЯЯ ПОЛОСА ============ -->
+<div class="topbar">
+    <div class="container topbar-in">
+        <span class="item">🚀 <b>Бесплатный выезд</b> мастера по Москве</span>
+        <span class="item">⚡ Ремонт за <b>2–4 часа</b></span>
+        <span class="item">🛡️ <b>Гарантия 6 месяцев</b></span>
+    </div>
+</div>
+
+<!-- ============ ШАПКА ============ -->
+<header class="header">
+    <div class="container header-in">
+
+        <div class="logo-row">
+            <div class="logo-card oncopy">
+                <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy — Сервисный центр" loading="lazy">
+            </div>
+            <div class="collab" aria-hidden="true"></div>
+            <div class="logo-card kyocera">
+                <img src="{% static 'images/logo-kyocera.png' %}" alt="Kyocera" loading="lazy">
+            </div>
+        </div>
+
+        <div class="header-cta">
+            <a href="tel:+74959780087" class="phone-link">
+                <span>📞</span>
+                <span class="meta">
+                    <b>+7 (495) 978-00-87</b>
+                    <small>Ежедневно с 9:30 до 18:00</small>
+                </span>
+            </a>
+            <a href="#form" class="btn-call">Заказать звонок</a>
+        </div>
+    </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+
+            <!-- ТЕКСТ -->
+            <div class="hero-left reveal">
+                <div class="tag">
+                    <span class="pulse"></span>
+                    Работаем с 2010 • 15 000+ клиентов
+                </div>
+
+                <h1>Ремонт принтеров <span class="accent">Kyocera</span></h1>
+
+                <p class="subtitle">
+                    Профессиональный сервис в Москве. Бесплатная диагностика,
+                    выезд мастера в день заявки, оригинальные запчасти.
+                </p>
+
+                <div class="hero-usp">
+                    <div class="usp-item">
+                        <span class="check">✓</span>
+                        <span><b>Диагностика — 0 ₽.</b> Платите только за ремонт</span>
+                    </div>
+                    <div class="usp-item">
+                        <span class="check">✓</span>
+                        <span><b>Ремонт от 2 часов.</b> Срочно — сделаем в тот же день</span>
+                    </div>
+                    <div class="usp-item">
+                        <span class="check">✓</span>
+                        <span><b>Курьер бесплатно.</b> Заберём и привезём технику сами</span>
+                    </div>
+                </div>
+
+                <div class="hero-stats-inline">
+                    <div class="hstat">
+                        <span class="v">15 000+</span>
+                        <span class="l">успешных ремонтов</span>
+                    </div>
+                    <div class="hstat">
+                        <span class="v">98%</span>
+                        <span class="l">довольных клиентов</span>
+                    </div>
+                    <div class="hstat">
+                        <span class="v">24 ч</span>
+                        <span class="l">средний срок</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРИНТЕР -->
+            <div class="hero-printer-col reveal">
+                <img src="{% static 'images/printer.png' %}" alt="Принтер Kyocera" loading="lazy">
+            </div>
+
+            <!-- ФОРМА -->
+            <div class="hero-right reveal">
+                <div class="form-card" id="form">
+                    <h3>Оставьте заявку</h3>
+                    <p class="desc">
+                        Перезвоним за <b>10 минут</b>, назовём точную цену и запишем на удобное время
+                    </p>
+
+                    <form id="requestForm">
+                        <div class="field">
+                            <label>Номер телефона</label>
+                            <input type="tel" id="phoneInput" placeholder="+7 (___) ___-__-__" required>
+                        </div>
+
+                        <div class="captcha-field">
+                            <label>Подтвердите, что вы не робот</label>
+                            <div
+                                    id="captcha-container"
+                                    class="smart-captcha"
+                                    data-sitekey="ysc1_bT2T5ZFwxRWxdyddTxDyPEANb1LXpsq9afjboS1a873cd0e7"
+                                    data-hl="ru"
+                            ></div>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="btn-submit">
+                            Получить бесплатную консультацию
+                        </button>
+
+                        <p class="form-privacy">
+                            Нажимая кнопку, вы соглашаетесь с
+                            <a href="https://oncopy.ru/privacy/">политикой конфиденциальности</a>
+                        </p>
+                    </form>
+
+                    <div class="form-response" id="formStatus"></div>
+
+                    <div class="form-trust">
+                        <span class="t-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/></svg>
+                            Гарантия 6 мес
+                        </span>
+                        <span class="t-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                            Без предоплат
+                        </span>
+                        <span class="t-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            За 10 минут
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============ СТРИП ДОВЕРИЯ ============ -->
+<div class="trust-strip reveal">
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-item">
+                <div class="ico">🏆</div>
+                <div class="txt">
+                    <b>Сертифицированные</b>
+                    <span>мастера Kyocera</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="ico">⚡</div>
+                <div class="txt">
+                    <b>Ремонт от 2 часов</b>
+                    <span>срочно — в день заявки</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="ico">💎</div>
+                <div class="txt">
+                    <b>Оригинальные запчасти</b>
+                    <span>проверенные комплектующие</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <div class="ico">🛡️</div>
+                <div class="txt">
+                    <b>Гарантия 6 месяцев</b>
+                    <span>на все виды работ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ УСЛУГИ ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="eyebrow">Что мы ремонтируем</span>
+            <h2>Устраняем <span class="accent">любые неисправности</span></h2>
+            <p>От простой чистки до замены сложных узлов — сделаем всё за один визит</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="ico">⚡</div>
+                <h4>Не включается</h4>
+                <p>Диагностика блока питания, платы контроллера, восстановление цепей</p>
+                <span class="price">от 600 ₽</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="ico">🖨️</div>
+                <h4>Плохая печать</h4>
+                <p>Полосы, пятна, размытие — устраним заменой узлов или прошивкой</p>
+                <span class="price">от 950 ₽</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="ico">📄</div>
+                <h4>Зажевывает бумагу</h4>
+                <p>Замена роликов подачи, чистка тракта, регулировка механики</p>
+                <span class="price">от 1 500 ₽</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="ico">🔇</div>
+                <h4>Странный шум</h4>
+                <p>Диагностика механики, замена валов и подшипников, смазка</p>
+                <span class="price">от 950 ₽</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="ico">💻</div>
+                <h4>Ошибки на экране</h4>
+                <p>Прошивка, сброс ошибок, замена датчиков и контроллеров</p>
+                <span class="price">от 2 000 ₽</span>
+            </div>
+            <div class="service-card reveal">
+                <div class="ico">🔄</div>
+                <h4>Не видит картридж</h4>
+                <p>Чистка контактов, замена чипа, восстановление посадочных мест</p>
+                <span class="price">от 500 ₽</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ПОЧЕМУ МЫ ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="eyebrow">Наши преимущества</span>
+            <h2>Почему выбирают <span class="accent">Oncopy</span></h2>
+            <p>Мы работаем так, чтобы вы возвращались и рекомендовали нас друзьям</p>
+        </div>
+
+        <div class="why-grid">
+            <div class="why-visual reveal">
+                <h3>Мы берём на себя <span>всё, что связано с вашей печатью</span></h3>
+                <ul class="why-list">
+                    <li>
+                        <span class="chk">✓</span>
+                        <span><b>Бесплатный выезд мастера</b> по всей Москве — в день заявки</span>
+                    </li>
+                    <li>
+                        <span class="chk">✓</span>
+                        <span><b>Курьер заберёт и привезёт</b> технику, если вам неудобно везти самим</span>
+                    </li>
+                    <li>
+                        <span class="chk">✓</span>
+                        <span><b>Фиксированная цена</b> — озвучиваем до начала работ, без сюрпризов</span>
+                    </li>
+                    <li>
+                        <span class="chk">✓</span>
+                        <span><b>Гарантия 6 месяцев</b> — если что-то пойдёт не так, исправим бесплатно</span>
+                    </li>
+                    <li>
+                        <span class="chk">✓</span>
+                        <span><b>Работаем с юрлицами и ИП</b> — полный пакет документов, безнал</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="why-cards">
+                <div class="why-card reveal">
+                    <span class="ico">🚀</span>
+                    <h5>Быстро</h5>
+                    <p>Большинство ремонтов занимает 2–4 часа</p>
+                </div>
+                <div class="why-card reveal">
+                    <span class="ico">💰</span>
+                    <h5>Честно</h5>
+                    <p>Точная смета до начала работ, без накруток</p>
+                </div>
+                <div class="why-card reveal">
+                    <span class="ico">🎯</span>
+                    <h5>Точно</h5>
+                    <p>97% ремонтов с первого обращения</p>
+                </div>
+                <div class="why-card reveal">
+                    <span class="ico">📞</span>
+                    <h5>На связи</h5>
+                    <p>Консультируем по телефону бесплатно</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ КАРТРИДЖИ ============ -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="cartridge reveal">
+            <div class="cartridge-info">
+                <span class="tag">✨ В наличии на складе</span>
+                <h3>Новые <span>картриджи</span> для всех принтеров</h3>
+                <p>
+                    Оригинальные и совместимые картриджи для Kyocera, HP, Canon, Brother, Epson.
+                    Всегда в наличии, с гарантией качества печати.
+                </p>
+                <ul class="cartridge-benefits">
+                    <li><span class="chk">✓</span> Картриджи для всех марок и моделей принтеров</li>
+                    <li><span class="chk">✓</span> Оригинальные и совместимые тонер-картриджи</li>
+                    <li><span class="chk">✓</span> Доставка курьером по Москве в день заказа</li>
+                    <li><span class="chk">✓</span> Заправка и восстановление по цене от 500 ₽</li>
+                </ul>
+                <a href="#form" class="btn-cartridge">
+                    🛒 Узнать стоимость картриджа
+                </a>
+            </div>
+            <div class="cartridge-visual">
+                <img src="{% static 'images/cartridge.png' %}" alt="Картридж" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ПРАЙС ============ -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="eyebrow">Прозрачные цены</span>
+            <h2>Прайс-<span class="accent">лист</span></h2>
+            <p>Финальную стоимость назовём после бесплатной диагностики — без скрытых платежей</p>
+        </div>
+
+        <div class="price-table reveal">
+            <div class="price-row">
+                <span class="num">01</span>
+                <div class="name">
+                    <b>Диагностика</b>
+                    <span>Полная проверка принтера и определение неисправности</span>
+                </div>
+                <span class="amount"><small>от</small> 600 ₽</span>
+            </div>
+            <div class="price-row">
+                <span class="num">02</span>
+                <div class="name">
+                    <b>Чистка узлов</b>
+                    <span>Профессиональная чистка всех механизмов и оптики</span>
+                </div>
+                <span class="amount"><small>от</small> 950 ₽</span>
+            </div>
+            <div class="price-row">
+                <span class="num">03</span>
+                <div class="name">
+                    <b>Замена роликов</b>
+                    <span>Ролики подачи, отделения, переноса + регулировка</span>
+                </div>
+                <span class="amount"><small>от</small> 1 500 ₽</span>
+            </div>
+            <div class="price-row">
+                <span class="num">04</span>
+                <div class="name">
+                    <b>Прошивка</b>
+                    <span>Обновление ПО, сброс счётчиков, устранение ошибок</span>
+                </div>
+                <span class="amount"><small>от</small> 2 000 ₽</span>
+            </div>
+            <div class="price-row">
+                <span class="num">05</span>
+                <div class="name">
+                    <b>Заправка картриджей</b>
+                    <span>Качественный тонер + чистка + замена чипа</span>
+                </div>
+                <span class="amount"><small>от</small> 500 ₽</span>
+            </div>
+            <div class="price-note">
+                💡 Точную стоимость назовём после бесплатной диагностики. Запчасти — отдельно.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ОТЗЫВЫ ============ -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="eyebrow">Отзывы клиентов</span>
+            <h2>Что говорят <span class="accent">о нас</span></h2>
+            <p>Реальные отзывы клиентов, которые уже пользовались нашим сервисом</p>
+        </div>
+
+        <div class="reviews-grid">
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">
+                    «Принтер Kyocera перестал печатать — думали, надо покупать новый.
+                    Мастер приехал в тот же день, за 2 часа всё починил. Цена — как договаривались.
+                    Рекомендую!»
+                </p>
+                <div class="review-author">
+                    <div class="review-avatar">А</div>
+                    <div class="meta">
+                        <b>Алексей Петров</b>
+                        <span>Коммерческий директор</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">
+                    «Работаем с Oncopy уже 3 года. Обслуживают весь парк принтеров в офисе.
+                    Всегда оперативно, качественно и с гарантией. Больше никого не ищем.»
+                </p>
+                <div class="review-author">
+                    <div class="review-avatar">М</div>
+                    <div class="meta">
+                        <b>Марина Соколова</b>
+                        <span>Офис-менеджер</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card reveal">
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">
+                    «Курьер забрал принтер, через день вернул уже отремонтированный.
+                    Очень удобно — не пришлось никуда ехать. И цена приятно удивила.»
+                </p>
+                <div class="review-author">
+                    <div class="review-avatar">Д</div>
+                    <div class="meta">
+                        <b>Дмитрий Ким</b>
+                        <span>Частный клиент</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="section-head reveal">
+            <span class="eyebrow">Частые вопросы</span>
+            <h2>Отвечаем на <span class="accent">вопросы</span></h2>
+            <p>Собрали то, что чаще всего спрашивают перед обращением</p>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <div class="faq-q">
+                    <span>Сколько стоит диагностика?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Диагностика при последующем ремонте — <b>бесплатно</b>. Если вы решите не ремонтировать — стоимость диагностики 600 ₽. Мастер сразу назовёт причину и точную смету.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q">
+                    <span>Как быстро приедет мастер?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Выезд по Москве в день заявки. Большинство ремонтов выполняется за 2–4 часа на месте. Сложные случаи — забираем технику в сервис и возвращаем в течение 1–2 дней.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q">
+                    <span>Даёте ли гарантию на ремонт?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Да, мы даём <b>гарантию 6 месяцев</b> на все виды работ. Если проблема вернётся — устраним бесплатно. На запчасти — гарантия от производителя.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q">
+                    <span>Можно ли оплатить по безналу?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Да, работаем с юрлицами и ИП. Предоставляем полный пакет закрывающих документов, счёт, акт выполненных работ. Работаем с НДС и без.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q">
+                    <span>Что если принтер не подлежит ремонту?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Честно скажем об этом после диагностики. Никаких «накруток» — если ремонт нецелесообразен, поможем подобрать новый аппарат или предложим выгодный trade-in.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ФИНАЛЬНЫЙ CTA ============ -->
+<section class="section" style="padding-top:0;">
+    <div class="container">
+        <div class="final-cta reveal">
+            <div class="final-cta-in">
+                <h2>Не откладывайте — <span>принтер починим сегодня</span></h2>
+                <p>
+                    Оставьте заявку и получите бесплатную консультацию мастера.
+                    Перезвоним в течение 10 минут и назовём точную стоимость.
+                </p>
+                <a href="#form" class="btn-final">
+                    📞 Получить консультацию
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ ФУТЕР ============ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">
+                    <div class="footer-logo-card">
+                        <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy">
+                    </div>
+                </div>
+                <p>Профессиональный сервисный центр по ремонту принтеров Kyocera и другой техники в Москве. Работаем с 2010 года.</p>
+            </div>
+            <div class="footer-col">
+                <h6>Услуги</h6>
+                <a href="#">Ремонт принтеров</a>
+                <a href="#">Заправка картриджей</a>
+                <a href="#">Прошивка МФУ</a>
+                <a href="#">Обслуживание парка</a>
+            </div>
+            <div class="footer-col">
+                <h6>Компания</h6>
+                <a href="#">О нас</a>
+                <a href="#">Отзывы</a>
+                <a href="#">Гарантии</a>
+                <a href="#">Контакты</a>
+            </div>
+            <div class="footer-col">
+                <h6>Контакты</h6>
+                <a href="tel:+74959780087"><b>+7 (495) 978-00-87</b></a>
+                <a href="mailto:info@oncopy.ru">info@oncopy.ru</a>
+                <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76" target="_blank" rel="noopener">📍 Москва, ул. Руставели д.3 кор.7</a>
+                <p>Ежедневно с 9:30 до 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2010 – 2026 Oncopy — Сервисный центр Kyocera</span>
+            <a href="https://oncopy.ru/privacy/" style="color: var(--text-3); text-decoration: none;">Политика конфиденциальности</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="sticky-cta">
+    <a href="#form" class="sticky-cta-btn">
+        📞 Оставить заявку
+    </a>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
+
+<script>
+    /* ===== Маска телефона ===== */
+    const phoneInput = document.getElementById('phoneInput');
+
+    phoneInput.addEventListener('input', function() {
+        let digits = this.value.replace(/\D/g, '');
+        if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
+        digits = digits.slice(0, 10);
+
+        let formatted = '+7';
+        if (digits.length > 0) formatted += ' (' + digits.slice(0, 3);
+        if (digits.length >= 4) formatted += ') ' + digits.slice(3, 6);
+        if (digits.length >= 7) formatted += '-' + digits.slice(6, 8);
+        if (digits.length >= 9) formatted += '-' + digits.slice(8, 10);
+
+        this.value = formatted;
+    });
+
+    phoneInput.addEventListener('focus', function() {
+        if (this.value === '') this.value = '+7';
+        setTimeout(() => this.setSelectionRange(this.value.length, this.value.length), 0);
+    });
+
+    phoneInput.addEventListener('blur', function() {
+        if (this.value === '+7') this.value = '';
+    });
+
+    /* ===== Отправка формы с проверкой капчи ===== */
+    document.getElementById('requestForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const phone = document.getElementById('phoneInput').value.trim();
+        const status = document.getElementById('formStatus');
+
+        // 1. Проверка номера
+        if (phone.replace(/\D/g, '').length < 11) {
+            showToast('❌ Введите корректный номер телефона', 'error');
+            return;
+        }
+
+        // 2. Получаем токен капчи
+        const captchaToken = window.smartCaptcha ? window.smartCaptcha.getResponse() : '';
+        if (!captchaToken) {
+            showToast('❌ Подтвердите, что вы не робот', 'error');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Отправляем...';
+        status.innerHTML = '';
+
+        try {
+            const response = await fetch('/submit-request/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: 'phone=' + encodeURIComponent(phone)
+                    + '&smart-token=' + encodeURIComponent(captchaToken)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                showToast('✅ Заявка принята! Перезвоним в течение 10 минут', 'success');
+                document.getElementById('phoneInput').value = '';
+                status.innerHTML = '<span style="color: #6ee7b7;">✓ Готово! Ожидайте звонка мастера.</span>';
+                if (window.smartCaptcha) window.smartCaptcha.reset();
+            } else {
+                showToast('❌ ' + (data.error || 'Ошибка отправки'), 'error');
+                if (window.smartCaptcha) window.smartCaptcha.reset();
+            }
+        } catch (err) {
+            showToast('❌ Ошибка сети. Проверьте подключение.', 'error');
+            if (window.smartCaptcha) window.smartCaptcha.reset();
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = 'Получить бесплатную консультацию';
+        }
+    });
+
+    function getCookie(name) {
+        let v = null;
+        if (document.cookie) {
+            document.cookie.split(';').forEach(c => {
+                c = c.trim();
+                if (c.startsWith(name + '=')) v = decodeURIComponent(c.substring(name.length + 1));
+            });
+        }
+        return v;
+    }
+
+    let toastTimeout;
+    function showToast(msg, type = '') {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.className = 'toast ' + type;
+        clearTimeout(toastTimeout);
+        void t.offsetWidth;
+        t.classList.add('show');
+        toastTimeout = setTimeout(() => t.classList.remove('show'), 5000);
+    }
+
+    /* ===== FAQ аккордеон ===== */
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.querySelector('.faq-q').addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    /* ===== Reveal on scroll ===== */
+    const io = new IntersectionObserver(entries => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('in'), i * 70);
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ===== Курсорное свечение ===== */
+    if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+                card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+            });
+        });
+    }
+
+    /* ===== Плавный скролл к форме ===== */
+    document.querySelectorAll('a[href="#form"]').forEach(a => {
+        a.addEventListener('click', e => {
+            e.preventDefault();
+            document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => phoneInput.focus(), 700);
+        });
+    });
+</script>
+</body>
+</html>
