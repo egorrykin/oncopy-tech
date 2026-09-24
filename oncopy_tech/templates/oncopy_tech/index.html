@@ -1080,6 +1080,15 @@
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
             .reveal { opacity: 1; transform: none; }
         }
+@media (max-width: 768px) {
+    .hero-printer-col img,
+    .cartridge-visual img,
+    .printer-3d,
+    .float-badge,
+    .hero-printer-col::before {
+        animation: none !important;
+    }
+}
     </style>
 </head>
 <body>
