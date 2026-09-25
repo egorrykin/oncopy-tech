@@ -43,7 +43,7 @@ def send_repair_email(phone):
     """Отправка заявки на почту"""
     subject = "🔧 Новая заявка на ремонт принтера"
     message = (
-        f"Новая заявка с сайта Oncopy\n\n"
+        f"Новая заявка с сайта Oncopy-tech\n\n"
         f"📱 Телефон: {phone}\n"
     )
     recipient_list = ['sale@oncopy.ru', 'rykinegor@yandex.ru']
