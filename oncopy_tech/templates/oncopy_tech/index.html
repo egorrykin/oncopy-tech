@@ -3,12 +3,15 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" sizes="any">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Oncopy — Ремонт принтеров Kyocera в Москве | Диагностика бесплатно</title>
     <meta name="description" content="Профессиональный ремонт принтеров и МФУ Kyocera. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (495) 978-00-87">
 
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <meta name="theme-color" content="#0a0b14">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -556,38 +559,6 @@
         .why-card h5 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
         .why-card p { font-size: 13px; color: var(--text-3); line-height: 1.5; }
 
-        /* ============ ОТЗЫВЫ ============ */
-        .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .review-card {
-            padding: 26px 24px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
-            border: 1px solid var(--border); border-radius: 18px;
-            box-shadow: var(--shadow-md), var(--inner-light);
-            display: flex; flex-direction: column; gap: 16px;
-            transition: all 0.25s;
-        }
-        .review-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: var(--shadow-lg), var(--inner-light);
-        }
-        .review-stars { display: flex; gap: 3px; color: #fbbf24; font-size: 16px; }
-        .review-text { font-size: 14px; color: var(--text-2); line-height: 1.65; flex-grow: 1; }
-        .review-author {
-            display: flex; align-items: center; gap: 12px;
-            padding-top: 16px; border-top: 1px solid var(--border);
-        }
-        .review-avatar {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--brand-1), var(--brand-3));
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 16px; color: #fff;
-            box-shadow: var(--inner-light), 0 2px 8px rgba(99, 102, 241, 0.3);
-        }
-        .review-author .meta { display: flex; flex-direction: column; gap: 2px; }
-        .review-author .meta b { font-size: 14px; font-weight: 700; color: var(--text); }
-        .review-author .meta span { font-size: 12px; color: var(--text-3); }
-
         /* ============ КАРТРИДЖИ ============ */
         .cartridge {
             display: grid; grid-template-columns: 1.15fr 0.85fr;
@@ -705,6 +676,59 @@
             padding: 18px 32px; background: rgba(99, 102, 241, 0.05);
             border-top: 1px solid var(--border);
             font-size: 13px; color: var(--text-3); text-align: center;
+        }
+
+        /* ============ ОТЗЫВЫ ЯНДЕКС ============ */
+        .reviews-widget-wrap {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .reviews-widget {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            height: 800px;
+            overflow: hidden;
+            border-radius: 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-xl), var(--inner-light);
+        }
+
+        .reviews-widget iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            border-radius: 24px;
+        }
+
+        .reviews-widget-link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            padding: 6px 16px;
+            background: rgba(10, 11, 20, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--text-3);
+            font-size: 11px;
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            border-radius: 0 0 24px 24px;
+            transition: color 0.2s;
+        }
+
+        .reviews-widget-link:hover {
+            color: var(--brand-2);
         }
 
         /* ============ FAQ ============ */
@@ -914,7 +938,6 @@
             .trust-grid { grid-template-columns: 1fr 1fr; }
             .services-grid { grid-template-columns: 1fr 1fr; }
             .why-grid { grid-template-columns: 1fr; }
-            .reviews-grid { grid-template-columns: 1fr; }
             .cartridge { grid-template-columns: 1fr; padding: 36px 28px; gap: 24px; }
             .cartridge-visual { order: -1; min-height: 200px; }
             .cartridge-visual img { max-width: 240px; }
@@ -943,6 +966,15 @@
             .header-cta { gap: 10px; }
             .phone-link { font-size: 15px; }
             .btn-call { display: none; }
+
+            /* Отключаем анимации на мобильных — убирает дёргание */
+            .hero-printer-col img,
+            .cartridge-visual img,
+            .printer-3d,
+            .float-badge,
+            .hero-printer-col::before {
+                animation: none !important;
+            }
         }
 
         @media (max-width: 640px) {
@@ -1027,8 +1059,6 @@
             .why-card h5 { font-size: 14px; }
             .why-card p { font-size: 12px; }
 
-            .review-card { padding: 20px 18px; }
-
             .cartridge { padding: 28px 20px; border-radius: 20px; gap: 20px; }
             .cartridge-info h3 { font-size: 22px; }
             .cartridge-info > p { font-size: 14px; margin-bottom: 18px; }
@@ -1044,6 +1074,21 @@
             .price-row .amount { font-size: 17px; }
             .price-row .amount small { font-size: 12px; }
             .price-note { padding: 14px 18px; font-size: 12px; }
+
+            /* Виджет отзывов на мобильных */
+            .reviews-widget {
+                max-width: 100%;
+                height: 600px;
+                border-radius: 18px;
+            }
+            .reviews-widget iframe {
+                border-radius: 18px;
+            }
+            .reviews-widget-link {
+                border-radius: 0 0 18px 18px;
+                font-size: 10px;
+                padding: 5px 12px;
+            }
 
             .faq-q { padding: 18px 18px; font-size: 15px; }
             .faq-q .ic { width: 28px; height: 28px; font-size: 16px; }
@@ -1061,8 +1106,12 @@
 
             .sticky-cta { display: block; }
             .toast { right: 12px; left: 12px; bottom: 100px; max-width: none; }
+        }
 
-            .smart-captcha { transform-origin: left top; }
+        @media (max-width: 480px) {
+            .reviews-widget {
+                height: 550px;
+            }
         }
 
         @media (max-width: 380px) {
@@ -1078,15 +1127,6 @@
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
             .reveal { opacity: 1; transform: none; }
         }
-@media (max-width: 768px) {
-    .hero-printer-col img,
-    .cartridge-visual img,
-    .printer-3d,
-    .float-badge,
-    .hero-printer-col::before {
-        animation: none !important;
-    }
-}
     </style>
 </head>
 <body>
@@ -1475,58 +1515,30 @@
     </div>
 </section>
 
-<!-- ============ ОТЗЫВЫ ============ -->
+<!-- ============ ОТЗЫВЫ ЯНДЕКС ============ -->
 <section class="section" style="padding-top:0;">
     <div class="container">
         <div class="section-head reveal">
             <span class="eyebrow">Отзывы клиентов</span>
             <h2>Что говорят <span class="accent">о нас</span></h2>
-            <p>Реальные отзывы клиентов, которые уже пользовались нашим сервисом</p>
+            <p>Реальные отзывы клиентов с Яндекс.Карт — без фейков и накруток</p>
         </div>
 
-        <div class="reviews-grid">
-            <div class="review-card reveal">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                    «Принтер Kyocera перестал печатать — думали, надо покупать новый.
-                    Мастер приехал в тот же день, за 2 часа всё починил. Цена — как договаривались.
-                    Рекомендую!»
-                </p>
-                <div class="review-author">
-                    <div class="review-avatar">А</div>
-                    <div class="meta">
-                        <b>Алексей Петров</b>
-                        <span>Коммерческий директор</span>
-                    </div>
-                </div>
-            </div>
-            <div class="review-card reveal">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                    «Работаем с Oncopy уже 3 года. Обслуживают весь парк принтеров в офисе.
-                    Всегда оперативно, качественно и с гарантией. Больше никого не ищем.»
-                </p>
-                <div class="review-author">
-                    <div class="review-avatar">М</div>
-                    <div class="meta">
-                        <b>Марина Соколова</b>
-                        <span>Офис-менеджер</span>
-                    </div>
-                </div>
-            </div>
-            <div class="review-card reveal">
-                <div class="review-stars">★★★★★</div>
-                <p class="review-text">
-                    «Курьер забрал принтер, через день вернул уже отремонтированный.
-                    Очень удобно — не пришлось никуда ехать. И цена приятно удивила.»
-                </p>
-                <div class="review-author">
-                    <div class="review-avatar">Д</div>
-                    <div class="meta">
-                        <b>Дмитрий Ким</b>
-                        <span>Частный клиент</span>
-                    </div>
-                </div>
+        <div class="reviews-widget-wrap reveal">
+            <div class="reviews-widget">
+                <iframe
+                        src="https://yandex.ru/maps-reviews-widget/98079126676?comments"
+                        frameborder="0"
+                        loading="lazy"
+                        title="Отзывы о Oncopy на Яндекс.Картах">
+                </iframe>
+                <a
+                        href="https://yandex.ru/maps/org/servisny_tsentr_onkopi/98079126676/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="reviews-widget-link">
+                    Сервисный центр Онкопи на карте Москвы — Яндекс Карты
+                </a>
             </div>
         </div>
     </div>
@@ -1638,7 +1650,7 @@
             <div class="footer-col">
                 <h6>Контакты</h6>
                 <a href="tel:+74959780087"><b>+7 (495) 978-00-87</b></a>
-                <a href="mailto:info@oncopy.ru">sale@oncopy.ru</a>
+                <a href="mailto:info@oncopy.ru">info@oncopy.ru</a>
                 <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76" target="_blank" rel="noopener">📍 Москва, ул. Руставели д.3 кор.7</a>
                 <p>Ежедневно с 9:30 до 18:00</p>
             </div>
@@ -1694,13 +1706,13 @@
         const phone = document.getElementById('phoneInput').value.trim();
         const status = document.getElementById('formStatus');
 
-        // 1. Проверка номера
+        // 1. Проверка телефона
         if (phone.replace(/\D/g, '').length < 11) {
             showToast('❌ Введите корректный номер телефона', 'error');
             return;
         }
 
-        // 2. Получаем токен капчи
+        // 2. Проверка капчи
         const captchaToken = window.smartCaptcha ? window.smartCaptcha.getResponse() : '';
         if (!captchaToken) {
             showToast('❌ Подтвердите, что вы не робот', 'error');
@@ -1804,18 +1816,5 @@
         });
     });
 </script>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-    (function(m,e,t,r,i,k,a){
-        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-        m[i].l=1*new Date();
-        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113002001', 'ym');
-
-    ym(113002001, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/113002001" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
 </body>
 </html>
