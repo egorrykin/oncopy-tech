@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Oncopy — Ремонт принтеров Kyocera в Москве | Диагностика бесплатно</title>
-    <meta name="description" content="Профессиональный ремонт принтеров и МФУ Kyocera. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (925) 518-14-55">
+    <title>Oncopy — Ремонт принтеров в Москве | Диагностика бесплатно</title>
+    <meta name="description" content="Профессиональный ремонт принтеров и МФУ. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (925) 518-14-55">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
@@ -175,35 +175,11 @@
 
         /* ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (СРАЗУ ПОД ШАПКОЙ) ============ */
         .brands-section {
-            padding: 36px 0 30px;
+            padding: 28px 0 26px;
             overflow: hidden;
             border-bottom: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent);
         }
-
-        .brands-head {
-            text-align: center; max-width: 720px;
-            margin: 0 auto 24px; padding: 0 24px;
-        }
-
-        .brands-head .eyebrow {
-            display: inline-block; font-size: 11px; font-weight: 700;
-            color: var(--brand-2); text-transform: uppercase;
-            letter-spacing: 2px; margin-bottom: 8px;
-        }
-
-        .brands-head h2 {
-            font-size: 28px; font-weight: 900;
-            letter-spacing: -1px; line-height: 1.15; margin-bottom: 8px;
-        }
-
-        .brands-head h2 .accent {
-            background: linear-gradient(120deg, #6366f1, #a855f7);
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .brands-head p { font-size: 14px; color: var(--text-2); line-height: 1.5; }
 
         .brands-marquee {
             position: relative; display: flex; overflow: hidden;
@@ -955,9 +931,6 @@
             .section-head h2 { font-size: 34px; }
             .section-head p { font-size: 15px; }
 
-            .brands-head h2 { font-size: 24px; }
-            .brands-head p { font-size: 13px; }
-
             .trust-grid { grid-template-columns: 1fr 1fr; }
             .services-grid { grid-template-columns: 1fr 1fr; }
             .why-grid { grid-template-columns: 1fr; }
@@ -1025,11 +998,7 @@
             .phone-link .meta small { display: none; }
 
             /* Компактная карусель на мобилке */
-            .brands-section { padding: 22px 0 20px; }
-            .brands-head { margin-bottom: 16px; }
-            .brands-head .eyebrow { font-size: 10px; margin-bottom: 6px; }
-            .brands-head h2 { font-size: 19px; letter-spacing: -0.5px; margin-bottom: 4px; }
-            .brands-head p { font-size: 12px; }
+            .brands-section { padding: 18px 0 18px; }
 
             .brands-marquee { gap: 12px; }
             .brands-marquee + .brands-marquee { margin-top: 12px; }
@@ -1219,11 +1188,6 @@
 
 <!-- ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (СРАЗУ ПОД ШАПКОЙ) ============ -->
 <section class="brands-section">
-    <div class="brands-head">
-        <span class="eyebrow">Ремонтируем всё</span>
-        <h2>Чиним принтеры <span class="accent">всех марок</span></h2>
-        <p>Оригинальные запчасти и прошивки для каждой модели</p>
-    </div>
 
     <!-- Ряд 1: движется влево -->
     <div class="brands-marquee">
@@ -1329,7 +1293,7 @@
                     Работаем с 2010 • 15 000+ клиентов
                 </div>
 
-                <h1>Ремонт принтеров <span class="accent">Kyocera</span></h1>
+                <h1>Ремонт <span class="accent">принтеров</span></h1>
 
                 <p class="subtitle">
                     Профессиональный сервис в Москве. Бесплатная диагностика,
@@ -1368,7 +1332,7 @@
             </div>
 
             <div class="hero-printer-col reveal">
-                <img src="{% static 'images/printer.png' %}" alt="Принтер Kyocera" loading="lazy" decoding="async">
+                <img src="{% static 'images/printer.png' %}" alt="Принтер" loading="lazy" decoding="async">
             </div>
 
             <div class="hero-right reveal">
@@ -1464,7 +1428,7 @@
                 <div class="ico">🏆</div>
                 <div class="txt">
                     <b>Сертифицированные</b>
-                    <span>мастера Kyocera</span>
+                    <span>мастера по ремонту</span>
                 </div>
             </div>
             <div class="trust-item">
@@ -1776,7 +1740,7 @@
                         <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy" loading="lazy" decoding="async">
                     </div>
                 </div>
-                <p>Профессиональный сервисный центр по ремонту принтеров Kyocera и другой техники в Москве. Работаем с 2010 года.</p>
+                <p>Профессиональный сервисный центр по ремонту принтеров и другой техники в Москве. Работаем с 2010 года.</p>
             </div>
             <div class="footer-col">
                 <h6>Услуги</h6>
@@ -1801,7 +1765,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2010 – 2026 Oncopy — Сервисный центр Kyocera</span>
+            <span>© 2010 – 2026 Oncopy — Сервисный центр</span>
             <a href="https://oncopy.ru/privacy/" style="color: var(--text-3); text-decoration: none;">Политика конфиденциальности</a>
         </div>
     </div>
