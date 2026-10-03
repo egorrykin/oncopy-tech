@@ -233,7 +233,7 @@
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
             gap: 20px; min-width: 100%;
-            /* Анимация теперь управляется через JS */
+            /* Анимация управляется через JS */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -webkit-transform: translate3d(0, 0, 0);
@@ -1977,7 +1977,11 @@
         const marquees = document.querySelectorAll('.brands-marquee');
         if (!marquees.length) return;
 
-        const SPEED = 0.5; // пикселей за 16.67 мс (~30 px/сек)
+        // Скорость зависит от размера экрана:
+        // на мобилке карточки мельче → чуть быстрее, чтобы «читалось» движение;
+        // на десктопе — спокойное, «тягучее» движение.
+        const isMobile = window.matchMedia('(max-width: 640px)').matches;
+        const SPEED = isMobile ? 1.1 : 0.7;  // пикселей за 16.67 мс
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const effSpeed = reduceMotion ? SPEED * 0.3 : SPEED;
 
