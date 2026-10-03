@@ -101,7 +101,7 @@
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid var(--border);
-            padding: 14px 0;
+            padding: 20px 0;
         }
         .header-in {
             display: flex; justify-content: space-between; align-items: center;
@@ -112,8 +112,8 @@
 
         .logo-card {
             display: flex; align-items: center; justify-content: center;
-            background: #ffffff; border-radius: 14px;
-            padding: 8px 16px; height: 58px;
+            background: #ffffff; border-radius: 16px;
+            padding: 10px 20px; height: 72px;
             box-shadow:
                 0 4px 12px rgba(0,0,0,0.35),
                 0 2px 6px rgba(0,0,0,0.25),
@@ -129,41 +129,41 @@
                 inset 0 -1px 0 rgba(0,0,0,0.05);
         }
         .logo-card img {
-            display: block; height: 40px; width: auto;
-            max-width: 160px; object-fit: contain;
+            display: block; height: 50px; width: auto;
+            max-width: 190px; object-fit: contain;
         }
-        .logo-card.oncopy img { height: 42px; max-width: 150px; }
-        .logo-card.kyocera img { height: 34px; max-width: 170px; }
+        .logo-card.oncopy img { height: 54px; max-width: 180px; }
+        .logo-card.kyocera img { height: 44px; max-width: 200px; }
 
         .collab {
-            width: 30px; height: 30px; border-radius: 50%;
+            width: 36px; height: 36px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             background: var(--surface); border: 1px solid var(--border-strong);
             position: relative; box-shadow: var(--inner-light); flex-shrink: 0;
         }
         .collab::before, .collab::after {
             content: ''; position: absolute;
-            width: 12px; height: 2px; border-radius: 2px;
+            width: 14px; height: 2.4px; border-radius: 2px;
             background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
         }
         .collab::before { transform: rotate(45deg); }
         .collab::after { transform: rotate(-45deg); }
 
-        .header-cta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .header-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .phone-link {
-            display: inline-flex; align-items: center; gap: 10px;
+            display: inline-flex; align-items: center; gap: 12px;
             text-decoration: none; color: var(--text);
-            font-weight: 700; font-size: 17px; transition: color 0.2s;
+            font-weight: 700; font-size: 19px; transition: color 0.2s;
         }
         .phone-link:hover { color: var(--brand-2); }
         .phone-link .meta { display: flex; flex-direction: column; line-height: 1.15; }
-        .phone-link .meta small { font-size: 11px; font-weight: 400; color: var(--text-3); }
+        .phone-link .meta small { font-size: 12px; font-weight: 400; color: var(--text-3); }
 
         .btn-call {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 18px; border-radius: 100px;
+            padding: 13px 24px; border-radius: 100px;
             background: var(--surface); border: 1px solid var(--border-strong);
-            color: var(--text); font-weight: 600; font-size: 14px;
+            color: var(--text); font-weight: 600; font-size: 15px;
             text-decoration: none; transition: all 0.25s;
             box-shadow: var(--inner-light);
         }
@@ -174,10 +174,10 @@
         }
 
         .address-link {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 9px 14px; border-radius: 100px;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 13px 20px; border-radius: 100px;
             background: var(--surface); border: 1px solid var(--border-strong);
-            color: var(--text-2); font-weight: 500; font-size: 13px;
+            color: var(--text-2); font-weight: 500; font-size: 14px;
             text-decoration: none; transition: all 0.25s;
             box-shadow: var(--inner-light);
             white-space: nowrap;
@@ -498,6 +498,7 @@
         .section.reviews-top {
             border-top: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent);
+            padding-top: 32px;
         }
 
         .reviews-widget-wrap { display: flex; justify-content: center; width: 100%; }
@@ -944,6 +945,7 @@
             .hero-printer-col img { max-width: 280px; }
 
             .section { padding: 60px 0; }
+            .section.reviews-top { padding-top: 24px; }
             .section-head h2 { font-size: 34px; }
             .section-head p { font-size: 15px; }
 
@@ -960,7 +962,7 @@
             .final-cta h2 { font-size: 30px; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
 
-            .address-link { font-size: 12px; padding: 8px 12px; }
+            .address-link { font-size: 13px; padding: 10px 16px; }
         }
 
         @media (max-width: 768px) {
@@ -968,12 +970,12 @@
             .header-in { gap: 14px; }
             .logo-row { gap: 8px; }
             .logo-card {
-                height: 48px; padding: 6px 12px; border-radius: 12px;
+                height: 58px; padding: 8px 16px; border-radius: 13px;
             }
-            .logo-card.oncopy img { height: 34px; max-width: 120px; }
-            .logo-card.kyocera img { height: 26px; max-width: 130px; }
-            .collab { width: 26px; height: 26px; }
-            .collab::before, .collab::after { width: 10px; height: 1.8px; }
+            .logo-card.oncopy img { height: 42px; max-width: 140px; }
+            .logo-card.kyocera img { height: 32px; max-width: 150px; }
+            .collab { width: 30px; height: 30px; }
+            .collab::before, .collab::after { width: 11px; height: 2px; }
 
             .header-cta { gap: 10px; }
             .phone-link { font-size: 15px; }
@@ -992,22 +994,22 @@
             .topbar { font-size: 12px; padding: 6px 0; }
             .topbar-in { gap: 12px; }
 
-            .header { padding: 10px 0; }
+            .header { padding: 14px 0; }
             .header-in {
-                flex-direction: column; align-items: center; gap: 12px;
+                flex-direction: column; align-items: center; gap: 14px;
             }
-            .logo-row { justify-content: center; gap: 8px; }
+            .logo-row { justify-content: center; gap: 9px; }
             .logo-card {
-                height: 46px; padding: 5px 12px; border-radius: 11px;
+                height: 54px; padding: 7px 14px; border-radius: 12px;
             }
-            .logo-card.oncopy img { height: 32px; max-width: 110px; }
-            .logo-card.kyocera img { height: 24px; max-width: 120px; }
-            .collab { width: 24px; height: 24px; }
-            .collab::before, .collab::after { width: 9px; height: 1.8px; }
+            .logo-card.oncopy img { height: 38px; max-width: 130px; }
+            .logo-card.kyocera img { height: 28px; max-width: 140px; }
+            .collab { width: 28px; height: 28px; }
+            .collab::before, .collab::after { width: 10px; height: 2px; }
 
             .header-cta { width: 100%; justify-content: center; flex-wrap: wrap; }
             .phone-link {
-                font-size: 15px; padding: 8px 16px;
+                font-size: 16px; padding: 11px 18px;
                 background: var(--surface);
                 border: 1px solid var(--border-strong);
                 border-radius: 100px; box-shadow: var(--inner-light);
@@ -1019,7 +1021,7 @@
             .address-link {
                 flex: 1 1 100%;
                 justify-content: center;
-                font-size: 12px; padding: 9px 14px;
+                font-size: 13px; padding: 12px 18px;
                 order: 2;
             }
 
@@ -1069,7 +1071,7 @@
             .form-trust .t-item { font-size: 11px; }
 
             .section { padding: 44px 0; }
-            .section.reviews-top { padding-top: 44px; }
+            .section.reviews-top { padding-top: 20px; }
             .section-head { margin-bottom: 32px; }
             .section-head h2 { font-size: 26px; letter-spacing: -0.8px; }
             .section-head p { font-size: 14px; }
@@ -1141,12 +1143,12 @@
         }
 
         @media (max-width: 380px) {
-            .logo-card { height: 42px; padding: 4px 10px; }
-            .logo-card.oncopy img { height: 28px; max-width: 95px; }
-            .logo-card.kyocera img { height: 22px; max-width: 100px; }
-            .collab { width: 22px; height: 22px; }
-            .collab::before, .collab::after { width: 8px; height: 1.6px; }
-            .logo-row { gap: 6px; }
+            .logo-card { height: 50px; padding: 6px 12px; }
+            .logo-card.oncopy img { height: 34px; max-width: 115px; }
+            .logo-card.kyocera img { height: 26px; max-width: 120px; }
+            .collab { width: 26px; height: 26px; }
+            .collab::before, .collab::after { width: 9px; height: 1.8px; }
+            .logo-row { gap: 7px; }
 
             .brand-card { height: 50px; width: 104px; padding: 8px 12px; }
             .brand-card img { max-height: 26px; }
