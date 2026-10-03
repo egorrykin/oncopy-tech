@@ -109,21 +109,12 @@
         }
 
         /* ===== ЛОГОТИПЫ В СВЕТЛЫХ КАРТОЧКАХ ===== */
-        .logo-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: nowrap;
-        }
+        .logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
 
         .logo-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #ffffff;
-            border-radius: 14px;
-            padding: 8px 16px;
-            height: 58px;
+            display: flex; align-items: center; justify-content: center;
+            background: #ffffff; border-radius: 14px;
+            padding: 8px 16px; height: 58px;
             box-shadow:
                 0 4px 12px rgba(0,0,0,0.35),
                 0 2px 6px rgba(0,0,0,0.25),
@@ -139,34 +130,21 @@
                 inset 0 -1px 0 rgba(0,0,0,0.05);
         }
         .logo-card img {
-            display: block;
-            height: 40px;
-            width: auto;
-            max-width: 160px;
-            object-fit: contain;
+            display: block; height: 40px; width: auto;
+            max-width: 160px; object-fit: contain;
         }
         .logo-card.oncopy img { height: 42px; max-width: 150px; }
         .logo-card.kyocera img { height: 34px; max-width: 170px; }
 
         .collab {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--surface);
-            border: 1px solid var(--border-strong);
-            position: relative;
-            box-shadow: var(--inner-light);
-            flex-shrink: 0;
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--surface); border: 1px solid var(--border-strong);
+            position: relative; box-shadow: var(--inner-light); flex-shrink: 0;
         }
         .collab::before, .collab::after {
-            content: '';
-            position: absolute;
-            width: 12px;
-            height: 2px;
-            border-radius: 2px;
+            content: ''; position: absolute;
+            width: 12px; height: 2px; border-radius: 2px;
             background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
         }
         .collab::before { transform: rotate(45deg); }
@@ -200,10 +178,8 @@
         .hero { padding: 50px 0 70px; position: relative; }
 
         .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 340px 420px;
-            gap: 32px;
-            align-items: center;
+            display: grid; grid-template-columns: 1fr 340px 420px;
+            gap: 32px; align-items: center;
         }
 
         .hero-left .tag {
@@ -266,18 +242,14 @@
 
         /* ============ ПРИНТЕР ============ */
         .hero-printer-col {
-            position: relative;
-            display: flex; align-items: center; justify-content: center;
+            position: relative; display: flex; align-items: center; justify-content: center;
             min-height: 340px;
         }
         .hero-printer-col::before {
-            content: '';
-            position: absolute;
-            width: 280px; height: 280px;
-            border-radius: 50%;
+            content: ''; position: absolute;
+            width: 280px; height: 280px; border-radius: 50%;
             background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent 65%);
-            filter: blur(50px);
-            z-index: -1;
+            filter: blur(50px); z-index: -1;
             animation: pulseGlow 6s ease-in-out infinite alternate;
         }
         @keyframes pulseGlow {
@@ -300,8 +272,7 @@
             position: relative;
             background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
             border: 1px solid var(--border-strong);
-            border-radius: 24px;
-            padding: 32px 28px;
+            border-radius: 24px; padding: 32px 28px;
             box-shadow: var(--shadow-xl), var(--inner-light);
             backdrop-filter: blur(30px) saturate(180%);
             -webkit-backdrop-filter: blur(30px) saturate(180%);
@@ -344,21 +315,13 @@
         }
 
         /* ===== КАПЧА ===== */
-        .captcha-field {
-            margin-bottom: 14px;
-        }
+        .captcha-field { margin-bottom: 14px; }
         .captcha-field label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
+            display: block; font-size: 12px; font-weight: 600;
+            color: var(--text-3); text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 8px;
         }
-        .smart-captcha {
-            min-height: 100px;
-        }
+        .smart-captcha { min-height: 100px; }
 
         .btn-submit {
             width: 100%; padding: 18px 24px;
@@ -460,62 +423,128 @@
         }
         .section-head p { font-size: 17px; color: var(--text-2); line-height: 1.6; }
 
-        /* ============ ОТЗЫВЫ ЯНДЕКС (теперь сверху, после hero) ============ */
+        /* ============ ОТЗЫВЫ ЯНДЕКС ============ */
         .section.reviews-top {
             border-top: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.012), transparent);
         }
 
-        .reviews-widget-wrap {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
+        .reviews-widget-wrap { display: flex; justify-content: center; width: 100%; }
 
         .reviews-widget {
-            position: relative;
-            width: 100%;
-            max-width: 560px;
-            height: 800px;
-            overflow: hidden;
-            border-radius: 24px;
-            background: var(--surface);
+            position: relative; width: 100%; max-width: 560px;
+            height: 800px; overflow: hidden;
+            border-radius: 24px; background: var(--surface);
             border: 1px solid var(--border);
             box-shadow: var(--shadow-xl), var(--inner-light);
         }
 
         .reviews-widget iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            border-radius: 24px;
+            width: 100%; height: 100%; border: none;
+            display: block; border-radius: 24px;
         }
 
         .reviews-widget-link {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: block;
-            padding: 6px 16px;
+            position: absolute; bottom: 0; left: 0; right: 0;
+            display: block; padding: 6px 16px;
             background: rgba(10, 11, 20, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            color: var(--text-3);
-            font-size: 11px;
+            color: var(--text-3); font-size: 11px;
             font-family: 'Inter', sans-serif;
-            text-align: center;
-            text-decoration: none;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            border-radius: 0 0 24px 24px;
-            transition: color 0.2s;
+            text-align: center; text-decoration: none;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            border-radius: 0 0 24px 24px; transition: color 0.2s;
         }
 
-        .reviews-widget-link:hover {
-            color: var(--brand-2);
+        .reviews-widget-link:hover { color: var(--brand-2); }
+
+        /* ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ ============ */
+        .brands-section {
+            padding: 70px 0;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.008), transparent);
+        }
+
+        .brands-head {
+            text-align: center; max-width: 720px;
+            margin: 0 auto 44px; padding: 0 24px;
+        }
+
+        .brands-head .eyebrow {
+            display: inline-block; font-size: 12px; font-weight: 700;
+            color: var(--brand-2); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 12px;
+        }
+
+        .brands-head h2 {
+            font-size: 44px; font-weight: 900;
+            letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+        }
+
+        .brands-head h2 .accent {
+            background: linear-gradient(120deg, #6366f1, #a855f7);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brands-head p { font-size: 17px; color: var(--text-2); line-height: 1.6; }
+
+        .brands-marquee {
+            position: relative; display: flex; overflow: hidden;
+            user-select: none; gap: 20px;
+            mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+        }
+
+        .brands-marquee + .brands-marquee { margin-top: 20px; }
+
+        .brands-track {
+            flex-shrink: 0; display: flex; align-items: center;
+            gap: 20px; min-width: 100%;
+            animation: marquee-left 55s linear infinite;
+            will-change: transform;
+        }
+
+        .brands-track.reverse { animation: marquee-right 55s linear infinite; }
+
+        .brands-marquee:hover .brands-track { animation-play-state: paused; }
+
+        @keyframes marquee-left {
+            from { transform: translateX(0); }
+            to   { transform: translateX(calc(-100% - 20px)); }
+        }
+
+        @keyframes marquee-right {
+            from { transform: translateX(calc(-100% - 20px)); }
+            to   { transform: translateX(0); }
+        }
+
+        .brand-card {
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+            height: 84px; width: 170px; padding: 16px 24px;
+            background: #ffffff; border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.35),
+                0 2px 6px rgba(0, 0, 0, 0.25),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 10px 24px rgba(0, 0, 0, 0.45),
+                0 4px 10px rgba(0, 0, 0, 0.3),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .brand-card img {
+            max-height: 46px; max-width: 100%; width: auto; height: auto;
+            object-fit: contain; display: block;
         }
 
         /* ============ УСЛУГИ ============ */
@@ -836,19 +865,13 @@
         .footer-col a:hover { color: var(--brand-2); }
         .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
         .footer-logo-card {
-            background: #ffffff;
-            border-radius: 10px;
-            padding: 6px 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            background: #ffffff; border-radius: 10px;
+            padding: 6px 14px; display: inline-flex;
+            align-items: center; justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .footer-logo-card img {
-            height: 32px;
-            width: auto;
-            max-width: 130px;
-            display: block;
+            height: 32px; width: auto; max-width: 130px; display: block;
         }
         .footer-bottom {
             padding-top: 24px; border-top: 1px solid var(--border);
@@ -940,6 +963,10 @@
             .section { padding: 60px 0; }
             .section-head h2 { font-size: 34px; }
             .section-head p { font-size: 15px; }
+
+            .brands-head h2 { font-size: 34px; }
+            .brands-head p { font-size: 15px; }
+
             .trust-grid { grid-template-columns: 1fr 1fr; }
             .services-grid { grid-template-columns: 1fr 1fr; }
             .why-grid { grid-template-columns: 1fr; }
@@ -959,9 +986,7 @@
             .header-in { gap: 14px; }
             .logo-row { gap: 8px; }
             .logo-card {
-                height: 48px;
-                padding: 6px 12px;
-                border-radius: 12px;
+                height: 48px; padding: 6px 12px; border-radius: 12px;
             }
             .logo-card.oncopy img { height: 34px; max-width: 120px; }
             .logo-card.kyocera img { height: 26px; max-width: 130px; }
@@ -988,15 +1013,11 @@
 
             .header { padding: 10px 0; }
             .header-in {
-                flex-direction: column;
-                align-items: center;
-                gap: 12px;
+                flex-direction: column; align-items: center; gap: 12px;
             }
             .logo-row { justify-content: center; gap: 8px; }
             .logo-card {
-                height: 46px;
-                padding: 5px 12px;
-                border-radius: 11px;
+                height: 46px; padding: 5px 12px; border-radius: 11px;
             }
             .logo-card.oncopy img { height: 32px; max-width: 110px; }
             .logo-card.kyocera img { height: 24px; max-width: 120px; }
@@ -1005,14 +1026,11 @@
 
             .header-cta { width: 100%; justify-content: center; }
             .phone-link {
-                font-size: 15px;
-                padding: 8px 16px;
+                font-size: 15px; padding: 8px 16px;
                 background: var(--surface);
                 border: 1px solid var(--border-strong);
-                border-radius: 100px;
-                box-shadow: var(--inner-light);
-                width: 100%;
-                justify-content: center;
+                border-radius: 100px; box-shadow: var(--inner-light);
+                width: 100%; justify-content: center;
             }
             .phone-link .meta small { display: none; }
 
@@ -1044,6 +1062,31 @@
             .section-head { margin-bottom: 32px; }
             .section-head h2 { font-size: 26px; letter-spacing: -0.8px; }
             .section-head p { font-size: 14px; }
+
+            /* Бренды на мобильных */
+            .brands-section { padding: 44px 0; }
+            .brands-head { margin-bottom: 28px; }
+            .brands-head h2 { font-size: 26px; letter-spacing: -0.8px; }
+            .brands-head p { font-size: 14px; }
+
+            .brands-marquee { gap: 14px; }
+            .brands-marquee + .brands-marquee { margin-top: 14px; }
+            .brands-track { gap: 14px; }
+
+            .brand-card {
+                height: 68px; width: 138px;
+                padding: 12px 18px; border-radius: 12px;
+            }
+            .brand-card img { max-height: 36px; }
+
+            @keyframes marquee-left {
+                from { transform: translateX(0); }
+                to   { transform: translateX(calc(-100% - 14px)); }
+            }
+            @keyframes marquee-right {
+                from { transform: translateX(calc(-100% - 14px)); }
+                to   { transform: translateX(0); }
+            }
 
             .trust-grid { grid-template-columns: 1fr; gap: 12px; }
             .trust-item { padding: 16px; }
@@ -1083,17 +1126,11 @@
 
             /* Виджет отзывов на мобильных */
             .reviews-widget {
-                max-width: 100%;
-                height: 600px;
-                border-radius: 18px;
+                max-width: 100%; height: 600px; border-radius: 18px;
             }
-            .reviews-widget iframe {
-                border-radius: 18px;
-            }
+            .reviews-widget iframe { border-radius: 18px; }
             .reviews-widget-link {
-                border-radius: 0 0 18px 18px;
-                font-size: 10px;
-                padding: 5px 12px;
+                border-radius: 0 0 18px 18px; font-size: 10px; padding: 5px 12px;
             }
 
             .faq-q { padding: 18px 18px; font-size: 15px; }
@@ -1115,9 +1152,7 @@
         }
 
         @media (max-width: 480px) {
-            .reviews-widget {
-                height: 550px;
-            }
+            .reviews-widget { height: 550px; }
         }
 
         @media (max-width: 380px) {
@@ -1127,11 +1162,15 @@
             .collab { width: 22px; height: 22px; }
             .collab::before, .collab::after { width: 8px; height: 1.6px; }
             .logo-row { gap: 6px; }
+
+            .brand-card { height: 60px; width: 120px; padding: 10px 14px; }
+            .brand-card img { max-height: 30px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
             .reveal { opacity: 1; transform: none; }
+            .brands-track { animation: none !important; }
         }
     </style>
 </head>
@@ -1325,6 +1364,107 @@
                     Сервисный центр Онкопи на карте Москвы — Яндекс Карты
                 </a>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ ============ -->
+<section class="brands-section reveal">
+    <div class="brands-head">
+        <span class="eyebrow">Ремонтируем всё</span>
+        <h2>Чиним принтеры <span class="accent">всех марок</span></h2>
+        <p>Оригинальные запчасти и прошивки для каждой модели</p>
+    </div>
+
+    <!-- Ряд 1: движется влево -->
+    <div class="brands-marquee">
+        <div class="brands-track">
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy"></div>
+        </div>
+        <div class="brands-track" aria-hidden="true">
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy"></div>
+        </div>
+    </div>
+
+    <!-- Ряд 2: движется вправо -->
+    <div class="brands-marquee">
+        <div class="brands-track reverse">
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy"></div>
+        </div>
+        <div class="brands-track reverse" aria-hidden="true">
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy"></div>
         </div>
     </div>
 </section>
@@ -1724,13 +1864,11 @@
         const phone = document.getElementById('phoneInput').value.trim();
         const status = document.getElementById('formStatus');
 
-        // 1. Проверка телефона
         if (phone.replace(/\D/g, '').length < 11) {
             showToast('❌ Введите корректный номер телефона', 'error');
             return;
         }
 
-        // 2. Проверка капчи
         const captchaToken = window.smartCaptcha ? window.smartCaptcha.getResponse() : '';
         if (!captchaToken) {
             showToast('❌ Подтвердите, что вы не робот', 'error');
