@@ -197,7 +197,7 @@
             border-bottom: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent);
         }
-        /* Градиентные «шторки» по бокам — вместо mask-image */
+        /* Градиентные «шторки» по бокам */
         .brands-section::before,
         .brands-section::after {
             content: '';
@@ -233,34 +233,14 @@
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
             gap: 20px; min-width: 100%;
-            animation: marquee-left 60s linear infinite;
-            animation-timing-function: linear;
-            will-change: transform;
+            /* Анимация теперь управляется через JS */
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
-        }
-
-        .brands-track.reverse {
-            animation: marquee-right 60s linear infinite;
-            animation-timing-function: linear;
-        }
-
-        /* Пауза при наведении (только десктоп) */
-        @media (hover: hover) {
-            .brands-marquee:hover .brands-track { animation-play-state: paused; }
-        }
-
-        @keyframes marquee-left {
-            from { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
-            to   { -webkit-transform: translate3d(calc(-100% - 20px), 0, 0); transform: translate3d(calc(-100% - 20px), 0, 0); }
-        }
-        @keyframes marquee-right {
-            from { -webkit-transform: translate3d(calc(-100% - 20px), 0, 0); transform: translate3d(calc(-100% - 20px), 0, 0); }
-            to   { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
+            will-change: transform;
         }
 
         .brand-card {
@@ -1076,20 +1056,6 @@
             }
             .brand-card img { max-height: 30px; }
 
-            @keyframes marquee-left {
-                from { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
-                to   { -webkit-transform: translate3d(calc(-100% - 12px), 0, 0); transform: translate3d(calc(-100% - 12px), 0, 0); }
-            }
-            @keyframes marquee-right {
-                from { -webkit-transform: translate3d(calc(-100% - 12px), 0, 0); transform: translate3d(calc(-100% - 12px), 0, 0); }
-                to   { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
-            }
-
-            /* На мобилке — медленнее и без пауз, чтобы смотрелось плавно */
-            .brands-track,
-            .brands-track.reverse {
-                animation-duration: 75s;
-            }
             .brands-section::before,
             .brands-section::after {
                 width: 6%;
@@ -1204,9 +1170,6 @@
 
         @media (prefers-reduced-motion: reduce) {
             .reveal { opacity: 1; transform: none; }
-            /* Карусель замедляем, но не выключаем */
-            .brands-track,
-            .brands-track.reverse { animation-duration: 100s !important; }
         }
     </style>
 </head>
@@ -2006,6 +1969,95 @@
             setTimeout(() => phoneInput.focus(), 700);
         });
     });
+
+    /* =========================================================
+       ПЛАВНАЯ КАРУСЕЛЬ БРЕНДОВ ЧЕРЕЗ requestAnimationFrame
+       ========================================================= */
+    (function initBrandsMarquee() {
+        const marquees = document.querySelectorAll('.brands-marquee');
+        if (!marquees.length) return;
+
+        // Скорость: пикселей за 1/60 секунды (нормализуется через dt)
+        // 0.5px/кадр ≈ 30px/сек — мягкое, "тягучее" движение
+        const SPEED = 0.5;
+
+        marquees.forEach(marquee => {
+            const tracks = marquee.querySelectorAll('.brands-track');
+            if (tracks.length < 2) return;
+
+            const isReverse = tracks[0].classList.contains('reverse');
+            let cycle = 0;    // длина одного трека + gap
+            let shift = 0;    // текущее смещение внутри цикла
+            let isPaused = false;
+            let isVisible = true;
+            let lastTs = 0;
+
+            function measure() {
+                const styles = getComputedStyle(marquee);
+                const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+                // offsetWidth — целое, но для точности берём getBoundingClientRect
+                const w = tracks[0].getBoundingClientRect().width;
+                cycle = w + gap;
+                // Для reverse начальный сдвиг должен показывать второй трек
+                // (сдвигаем belt влево на один цикл)
+                if (isReverse) {
+                    tracks.forEach(t => t.style.transform = `translate3d(${-cycle}px, 0, 0)`);
+                    shift = 0;
+                }
+            }
+
+            // Пауза при наведении (только устройства с hover)
+            if (window.matchMedia('(hover: hover)').matches) {
+                marquee.addEventListener('mouseenter', () => isPaused = true);
+                marquee.addEventListener('mouseleave', () => isPaused = false);
+            }
+
+            // Пауза вне viewport
+            const visIO = new IntersectionObserver(entries => {
+                entries.forEach(e => isVisible = e.isIntersecting);
+            }, { rootMargin: '100px' });
+            visIO.observe(marquee);
+
+            // Пересчёт при resize (с debounce) и после полной загрузки
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(measure, 200);
+            });
+            window.addEventListener('load', measure);
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(measure);
+            }
+
+            // Первичный замер
+            measure();
+
+            function tick(ts) {
+                if (!lastTs) lastTs = ts;
+                const dt = Math.min(ts - lastTs, 50); // защита от больших просадок
+                lastTs = ts;
+
+                if (!isPaused && isVisible && cycle > 0) {
+                    shift += SPEED * (dt / 16.6667);
+                    if (shift >= cycle) shift -= cycle;
+
+                    let x;
+                    if (isReverse) {
+                        x = -cycle + shift;
+                    } else {
+                        x = -shift;
+                    }
+                    // toFixed(2) — субпиксельная точность без лишних перерисовок
+                    const t = `translate3d(${x.toFixed(2)}px, 0, 0)`;
+                    for (let i = 0; i < tracks.length; i++) {
+                        tracks[i].style.transform = t;
+                    }
+                }
+                requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        });
+    })();
 </script>
 
 </body>
