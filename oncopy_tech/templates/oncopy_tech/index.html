@@ -193,19 +193,39 @@
         .brands-section {
             padding: 28px 0 26px;
             overflow: hidden;
+            position: relative;
             border-bottom: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent);
+        }
+        /* Градиентные «шторки» по бокам — вместо mask-image */
+        .brands-section::before,
+        .brands-section::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 8%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .brands-section::before {
+            left: 0;
+            background: linear-gradient(90deg, var(--bg) 0%, rgba(10, 11, 20, 0) 100%);
+        }
+        .brands-section::after {
+            right: 0;
+            background: linear-gradient(270deg, var(--bg) 0%, rgba(10, 11, 20, 0) 100%);
         }
 
         .brands-marquee {
             position: relative; display: flex; overflow: hidden;
             user-select: none; gap: 20px;
-            mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
-            -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+            contain: layout style paint;
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
 
         .brands-marquee + .brands-marquee { margin-top: 16px; }
@@ -213,14 +233,26 @@
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
             gap: 20px; min-width: 100%;
-            animation: marquee-left 40s linear infinite;
+            animation: marquee-left 60s linear infinite;
+            animation-timing-function: linear;
+            will-change: transform;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
 
-        .brands-track.reverse { animation: marquee-right 40s linear infinite; }
+        .brands-track.reverse {
+            animation: marquee-right 60s linear infinite;
+            animation-timing-function: linear;
+        }
+
+        /* Пауза при наведении (только десктоп) */
+        @media (hover: hover) {
+            .brands-marquee:hover .brands-track { animation-play-state: paused; }
+        }
 
         @keyframes marquee-left {
             from { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
@@ -1053,6 +1085,16 @@
                 to   { -webkit-transform: translate3d(0, 0, 0);                  transform: translate3d(0, 0, 0); }
             }
 
+            /* На мобилке — медленнее и без пауз, чтобы смотрелось плавно */
+            .brands-track,
+            .brands-track.reverse {
+                animation-duration: 75s;
+            }
+            .brands-section::before,
+            .brands-section::after {
+                width: 6%;
+            }
+
             .hero { padding: 24px 0 40px; }
             .hero-grid { gap: 28px; }
             .hero h1 { font-size: 32px; letter-spacing: -1.1px; line-height: 1.1; }
@@ -1162,8 +1204,9 @@
 
         @media (prefers-reduced-motion: reduce) {
             .reveal { opacity: 1; transform: none; }
-            /* Карусель продолжаем крутить, но заметно медленнее */
-            .brands-track { animation-duration: 80s !important; }
+            /* Карусель замедляем, но не выключаем */
+            .brands-track,
+            .brands-track.reverse { animation-duration: 100s !important; }
         }
     </style>
 </head>
