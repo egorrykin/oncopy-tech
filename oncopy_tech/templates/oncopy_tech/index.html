@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Oncopy — Ремонт принтеров Kyocera в Москве | Диагностика бесплатно</title>
-    <meta name="description" content="Профессиональный ремонт принтеров и МФУ Kyocera. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (495) 978-00-87">
+    <meta name="description" content="Профессиональный ремонт принтеров и МФУ Kyocera. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (925) 518-14-55">
 
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
@@ -108,7 +108,6 @@
             gap: 20px; flex-wrap: wrap;
         }
 
-        /* ===== ЛОГОТИПЫ В СВЕТЛЫХ КАРТОЧКАХ ===== */
         .logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
 
         .logo-card {
@@ -314,7 +313,6 @@
             box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
-        /* ===== КАПЧА ===== */
         .captcha-field { margin-bottom: 14px; }
         .captcha-field label {
             display: block; font-size: 12px; font-weight: 600;
@@ -504,13 +502,11 @@
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
             gap: 20px; min-width: 100%;
-            animation: marquee-left 55s linear infinite;
+            animation: marquee-left 40s linear infinite;
             will-change: transform;
         }
 
-        .brands-track.reverse { animation: marquee-right 55s linear infinite; }
-
-        .brands-marquee:hover .brands-track { animation-play-state: paused; }
+        .brands-track.reverse { animation: marquee-right 40s linear infinite; }
 
         @keyframes marquee-left {
             from { transform: translateX(0); }
@@ -531,20 +527,16 @@
                 0 4px 12px rgba(0, 0, 0, 0.35),
                 0 2px 6px rgba(0, 0, 0, 0.25),
                 inset 0 -1px 0 rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .brand-card:hover {
-            transform: translateY(-4px);
-            box-shadow:
-                0 10px 24px rgba(0, 0, 0, 0.45),
-                0 4px 10px rgba(0, 0, 0, 0.3),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
         }
 
         .brand-card img {
-            max-height: 46px; max-width: 100%; width: auto; height: auto;
-            object-fit: contain; display: block;
+            max-height: 46px;
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            content-visibility: auto;
         }
 
         /* ============ УСЛУГИ ============ */
@@ -997,7 +989,6 @@
             .phone-link { font-size: 15px; }
             .btn-call { display: none; }
 
-            /* Отключаем анимации на мобильных — убирает дёргание */
             .hero-printer-col img,
             .cartridge-visual img,
             .printer-3d,
@@ -1063,7 +1054,6 @@
             .section-head h2 { font-size: 26px; letter-spacing: -0.8px; }
             .section-head p { font-size: 14px; }
 
-            /* Бренды на мобильных */
             .brands-section { padding: 44px 0; }
             .brands-head { margin-bottom: 28px; }
             .brands-head h2 { font-size: 26px; letter-spacing: -0.8px; }
@@ -1124,7 +1114,6 @@
             .price-row .amount small { font-size: 12px; }
             .price-note { padding: 14px 18px; font-size: 12px; }
 
-            /* Виджет отзывов на мобильных */
             .reviews-widget {
                 max-width: 100%; height: 600px; border-radius: 18px;
             }
@@ -1206,11 +1195,11 @@
 
         <div class="logo-row">
             <div class="logo-card oncopy">
-                <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy — Сервисный центр" loading="lazy">
+                <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy — Сервисный центр" loading="lazy" decoding="async">
             </div>
             <div class="collab" aria-hidden="true"></div>
             <div class="logo-card kyocera">
-                <img src="{% static 'images/logo-kyocera.png' %}" alt="Kyocera" loading="lazy">
+                <img src="{% static 'images/logo-kyocera.png' %}" alt="Kyocera" loading="lazy" decoding="async">
             </div>
         </div>
 
@@ -1232,7 +1221,6 @@
     <div class="container">
         <div class="hero-grid">
 
-            <!-- ТЕКСТ -->
             <div class="hero-left reveal">
                 <div class="tag">
                     <span class="pulse"></span>
@@ -1277,12 +1265,10 @@
                 </div>
             </div>
 
-            <!-- ПРИНТЕР -->
             <div class="hero-printer-col reveal">
-                <img src="{% static 'images/printer.png' %}" alt="Принтер Kyocera" loading="lazy">
+                <img src="{% static 'images/printer.png' %}" alt="Принтер Kyocera" loading="lazy" decoding="async">
             </div>
 
-            <!-- ФОРМА -->
             <div class="hero-right reveal">
                 <div class="form-card" id="form">
                     <h3>Оставьте заявку</h3>
@@ -1339,7 +1325,7 @@
     </div>
 </section>
 
-<!-- ============ ОТЗЫВЫ ЯНДЕКС (после формы) ============ -->
+<!-- ============ ОТЗЫВЫ ЯНДЕКС ============ -->
 <section class="section reviews-top reveal">
     <div class="container">
         <div class="section-head">
@@ -1379,92 +1365,92 @@
     <!-- Ряд 1: движется влево -->
     <div class="brands-marquee">
         <div class="brands-track">
-            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy" decoding="async" width="170" height="46"></div>
         </div>
         <div class="brands-track" aria-hidden="true">
-            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
         </div>
     </div>
 
     <!-- Ряд 2: движется вправо -->
     <div class="brands-marquee">
         <div class="brands-track reverse">
-            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="Xerox" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="Toshiba" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="Sharp" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="Samsung" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="Ricoh" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="Philips" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="Pantum" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="Panasonic" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="OKI" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="Lexmark" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="Kyocera" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="Huawei" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="HP" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="Deli" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="Konica Minolta" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="Canon" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="Brother" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy" decoding="async" width="170" height="46"></div>
         </div>
         <div class="brands-track reverse" aria-hidden="true">
-            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy"></div>
-            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/xerox.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/toshiba.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/sharp.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/samsung.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/ricoh.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/philips.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/pantum.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/panasonic.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/oki.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/lexmark.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/kyocera.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/huawei.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/hp.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/deli.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/konica.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/canon.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/brother.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
+            <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="" loading="lazy" decoding="async" width="170" height="46"></div>
         </div>
     </div>
 </section>
@@ -1639,7 +1625,7 @@
                 </a>
             </div>
             <div class="cartridge-visual">
-                <img src="{% static 'images/cartridge.png' %}" alt="Картридж" loading="lazy">
+                <img src="{% static 'images/cartridge.png' %}" alt="Картридж" loading="lazy" decoding="async">
             </div>
         </div>
     </div>
@@ -1786,7 +1772,7 @@
             <div class="footer-col">
                 <div class="footer-brand">
                     <div class="footer-logo-card">
-                        <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy">
+                        <img src="{% static 'images/logo-oncopy.svg' %}" alt="Oncopy" loading="lazy" decoding="async">
                     </div>
                 </div>
                 <p>Профессиональный сервисный центр по ремонту принтеров Kyocera и другой техники в Москве. Работаем с 2010 года.</p>
