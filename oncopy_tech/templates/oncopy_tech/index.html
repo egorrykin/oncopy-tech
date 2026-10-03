@@ -149,7 +149,7 @@
         .collab::before { transform: rotate(45deg); }
         .collab::after { transform: rotate(-45deg); }
 
-        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .header-cta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .phone-link {
             display: inline-flex; align-items: center; gap: 10px;
             text-decoration: none; color: var(--text);
@@ -170,6 +170,22 @@
         .btn-call:hover {
             background: var(--surface-hover); transform: translateY(-2px);
             border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
+        }
+
+        .address-link {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 9px 14px; border-radius: 100px;
+            background: var(--surface); border: 1px solid var(--border-strong);
+            color: var(--text-2); font-weight: 500; font-size: 13px;
+            text-decoration: none; transition: all 0.25s;
+            box-shadow: var(--inner-light);
+            white-space: nowrap;
+        }
+        .address-link:hover {
+            background: var(--surface-hover); transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+            color: var(--text);
             box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
         }
 
@@ -943,6 +959,8 @@
             .final-cta { padding: 44px 28px; }
             .final-cta h2 { font-size: 30px; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+            .address-link { font-size: 12px; padding: 8px 12px; }
         }
 
         @media (max-width: 768px) {
@@ -987,15 +1005,23 @@
             .collab { width: 24px; height: 24px; }
             .collab::before, .collab::after { width: 9px; height: 1.8px; }
 
-            .header-cta { width: 100%; justify-content: center; }
+            .header-cta { width: 100%; justify-content: center; flex-wrap: wrap; }
             .phone-link {
                 font-size: 15px; padding: 8px 16px;
                 background: var(--surface);
                 border: 1px solid var(--border-strong);
                 border-radius: 100px; box-shadow: var(--inner-light);
-                width: 100%; justify-content: center;
+                justify-content: center;
+                flex: 1 1 auto;
             }
             .phone-link .meta small { display: none; }
+
+            .address-link {
+                flex: 1 1 100%;
+                justify-content: center;
+                font-size: 12px; padding: 9px 14px;
+                order: 2;
+            }
 
             /* Компактная карусель на мобилке */
             .brands-section { padding: 18px 0 18px; }
@@ -1174,6 +1200,13 @@
         </div>
 
         <div class="header-cta">
+            <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76"
+               target="_blank" rel="noopener noreferrer"
+               class="address-link"
+               title="Oncopy на Яндекс.Картах">
+                📍 Москва, ул. Руставели д.3 кор.7
+            </a>
+
             <a href="tel:+79255181455" class="phone-link">
                 <span>📞</span>
                 <span class="meta">
