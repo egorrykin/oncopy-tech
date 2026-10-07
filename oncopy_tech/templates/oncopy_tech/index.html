@@ -254,20 +254,13 @@
             height: 58px; width: 132px; padding: 10px 16px;
             background: #ffffff; border-radius: 11px;
             border: 1px solid rgba(255, 255, 255, 0.55);
-            /* === Приглушение: карточки брендов не должны перетягивать внимание === */
+            /* Приглушение: карточки брендов не должны перетягивать внимание.
+               Никаких hover-эффектов — карточки статичны. */
             opacity: 0.55;
             box-shadow:
                 0 2px 6px rgba(0, 0, 0, 0.22),
                 0 1px 3px rgba(0, 0, 0, 0.14);
-            transition: opacity 0.35s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .brand-card:hover {
-            opacity: 0.95;
-            transform: translateY(-2px);
-            box-shadow:
-                0 5px 14px rgba(0, 0, 0, 0.32),
-                0 2px 6px rgba(0, 0, 0, 0.2);
+            /* transition убран — нечему анимироваться */
         }
 
         .brand-card img {
@@ -1071,7 +1064,6 @@
                 padding: 8px 12px; border-radius: 9px;
                 opacity: 0.6;
             }
-            .brand-card:hover { opacity: 0.92; }
             .brand-card img { max-height: 26px; }
 
             .brands-section::before,
@@ -1998,6 +1990,7 @@
 
     /* =========================================================
        ПЛАВНАЯ КАРУСЕЛЬ БРЕНДОВ ЧЕРЕЗ requestAnimationFrame
+       Без паузы при наведении — движение непрерывное.
        ========================================================= */
     (function initBrandsMarquee() {
         const marquees = document.querySelectorAll('.brands-marquee');
@@ -2015,7 +2008,6 @@
             const isReverse = tracks[0].classList.contains('reverse');
             let cycle = 0;
             let shift = 0;
-            let isPaused = false;
             let isVisible = true;
             let lastTs = 0;
             let initialized = false;
@@ -2051,10 +2043,7 @@
                 }
             }
 
-            if (window.matchMedia('(hover: hover)').matches) {
-                marquee.addEventListener('mouseenter', () => isPaused = true);
-                marquee.addEventListener('mouseleave', () => isPaused = false);
-            }
+            // Пауза при наведении убрана — карусель движется непрерывно.
 
             const visIO = new IntersectionObserver(entries => {
                 entries.forEach(e => isVisible = e.isIntersecting);
@@ -2077,7 +2066,7 @@
                 const dt = Math.min(ts - lastTs, 50);
                 lastTs = ts;
 
-                if (initialized && !isPaused && isVisible && cycle > 0) {
+                if (initialized && isVisible && cycle > 0) {
                     shift += effSpeed * (dt / 16.6667);
                     if (shift >= cycle) shift -= cycle;
                     applyTransform();
