@@ -193,13 +193,15 @@
             box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
         }
 
-        /* ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (СРАЗУ ПОД ШАПКОЙ) ============ */
+        /* ============================================================
+           БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (ПРИГЛУШЁННАЯ, ФОНОВАЯ)
+           ============================================================ */
         .brands-section {
-            padding: 28px 0 26px;
+            padding: 18px 0 16px;
             overflow: hidden;
             position: relative;
-            border-bottom: 1px solid var(--border);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.008), transparent);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.004), transparent);
         }
         /* Градиентные «шторки» по бокам */
         .brands-section::before,
@@ -232,7 +234,7 @@
             transform-style: preserve-3d;
         }
 
-        .brands-marquee + .brands-marquee { margin-top: 16px; }
+        .brands-marquee + .brands-marquee { margin-top: 14px; }
 
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
@@ -249,17 +251,27 @@
 
         .brand-card {
             flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-            height: 70px; width: 150px; padding: 12px 20px;
-            background: #ffffff; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            height: 58px; width: 132px; padding: 10px 16px;
+            background: #ffffff; border-radius: 11px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            /* === Приглушение: карточки брендов не должны перетягивать внимание === */
+            opacity: 0.55;
             box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.35),
-                0 2px 6px rgba(0, 0, 0, 0.25),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+                0 2px 6px rgba(0, 0, 0, 0.22),
+                0 1px 3px rgba(0, 0, 0, 0.14);
+            transition: opacity 0.35s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .brand-card:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow:
+                0 5px 14px rgba(0, 0, 0, 0.32),
+                0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .brand-card img {
-            max-height: 38px;
+            max-height: 32px;
             max-width: 100%;
             width: auto;
             height: auto;
@@ -1047,18 +1059,20 @@
                 order: 2;
             }
 
-            /* Компактная карусель на мобилке */
-            .brands-section { padding: 18px 0 18px; }
+            /* Компактная и приглушённая карусель на мобилке */
+            .brands-section { padding: 14px 0 14px; }
 
             .brands-marquee { gap: 12px; }
-            .brands-marquee + .brands-marquee { margin-top: 12px; }
+            .brands-marquee + .brands-marquee { margin-top: 10px; }
             .brands-track { gap: 12px; }
 
             .brand-card {
-                height: 56px; width: 118px;
-                padding: 10px 14px; border-radius: 10px;
+                height: 48px; width: 100px;
+                padding: 8px 12px; border-radius: 9px;
+                opacity: 0.6;
             }
-            .brand-card img { max-height: 30px; }
+            .brand-card:hover { opacity: 0.92; }
+            .brand-card img { max-height: 26px; }
 
             .brands-section::before,
             .brands-section::after {
@@ -1168,8 +1182,8 @@
             .collab::before, .collab::after { width: 9px; height: 1.8px; }
             .logo-row { gap: 7px; }
 
-            .brand-card { height: 50px; width: 104px; padding: 8px 12px; }
-            .brand-card img { max-height: 26px; }
+            .brand-card { height: 44px; width: 92px; padding: 7px 10px; }
+            .brand-card img { max-height: 24px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
