@@ -26,7 +26,7 @@
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <meta name="theme-color" content="#f8f9fc">
 
-    <!-- Preload критичных изображений: принтер (LCP) — высокий, картридж — низкий -->
+    <!-- Preload критичных изображений -->
     <link rel="preload" as="image" href="{% static 'images/printer.png' %}" fetchpriority="high">
     <link rel="preload" as="image" href="{% static 'images/cartridge.png' %}" fetchpriority="low">
 
@@ -198,22 +198,22 @@
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid var(--border);
-            padding: 20px 0;
+            padding: 16px 0;
         }
         .header-in {
             display: flex; justify-content: space-between; align-items: center;
-            gap: 20px; flex-wrap: wrap;
+            gap: 20px; flex-wrap: nowrap;
         }
 
-        .logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; }
+        .logo-row { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; flex-shrink: 0; }
 
         .logo-card {
             display: flex; align-items: center; justify-content: center;
-            background: #ffffff; border-radius: 16px;
-            padding: 10px 20px; height: 72px;
+            background: #ffffff; border-radius: 14px;
+            padding: 8px 16px; height: 60px;
             box-shadow:
-                0 4px 12px rgba(0,0,0,0.18),
-                0 2px 6px rgba(0,0,0,0.1),
+                0 4px 12px rgba(0,0,0,0.12),
+                0 2px 6px rgba(0,0,0,0.06),
                 inset 0 -1px 0 rgba(0,0,0,0.05);
             border: 1px solid var(--logo-card-border);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -221,58 +221,45 @@
         .logo-card:hover {
             transform: translateY(-2px);
             box-shadow:
-                0 8px 20px rgba(0,0,0,0.25),
-                0 4px 10px rgba(0,0,0,0.15),
+                0 8px 20px rgba(0,0,0,0.18),
+                0 4px 10px rgba(0,0,0,0.1),
                 inset 0 -1px 0 rgba(0,0,0,0.05);
         }
         .logo-card img {
-            display: block; height: 50px; width: auto;
-            max-width: 190px; object-fit: contain;
+            display: block; height: 40px; width: auto;
+            max-width: 170px; object-fit: contain;
         }
-        .logo-card.oncopy img { height: 54px; max-width: 180px; }
-        .logo-card.kyocera img { height: 44px; max-width: 200px; }
+        .logo-card.oncopy img { height: 44px; max-width: 160px; }
+        .logo-card.kyocera img { height: 36px; max-width: 180px; }
 
         .collab {
-            width: 36px; height: 36px; border-radius: 50%;
+            width: 32px; height: 32px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             background: var(--surface); border: 1px solid var(--border-strong);
             position: relative; box-shadow: var(--inner-light); flex-shrink: 0;
         }
         .collab::before, .collab::after {
             content: ''; position: absolute;
-            width: 14px; height: 2.4px; border-radius: 2px;
+            width: 12px; height: 2px; border-radius: 2px;
             background: linear-gradient(90deg, var(--brand-1), var(--brand-3));
         }
         .collab::before { transform: rotate(45deg); }
         .collab::after { transform: rotate(-45deg); }
 
-        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; }
         .phone-link {
-            display: inline-flex; align-items: center; gap: 12px;
+            display: inline-flex; align-items: center; gap: 10px;
             text-decoration: none; color: var(--text);
-            font-weight: 700; font-size: 19px; transition: color 0.2s;
+            font-weight: 700; font-size: 17px; transition: color 0.2s;
+            white-space: nowrap;
         }
         .phone-link:hover { color: var(--brand-2); }
         .phone-link .meta { display: flex; flex-direction: column; line-height: 1.15; }
-        .phone-link .meta small { font-size: 12px; font-weight: 400; color: var(--text-3); }
-
-        .btn-call {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 24px; border-radius: 100px;
-            background: var(--surface); border: 1px solid var(--border-strong);
-            color: var(--text); font-weight: 600; font-size: 15px;
-            text-decoration: none; transition: all 0.25s;
-            box-shadow: var(--inner-light);
-        }
-        .btn-call:hover {
-            background: var(--surface-hover); transform: translateY(-2px);
-            border-color: rgba(99, 102, 241, 0.5);
-            box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
-        }
+        .phone-link .meta small { font-size: 11px; font-weight: 400; color: var(--text-3); }
 
         .address-link {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 20px; border-radius: 100px;
+            padding: 10px 18px; border-radius: 100px;
             background: var(--surface); border: 1px solid var(--border-strong);
             color: var(--text-2); font-weight: 500; font-size: 14px;
             text-decoration: none; transition: all 0.25s;
@@ -289,7 +276,7 @@
         /* ============ КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ============ */
         .theme-toggle {
             position: relative;
-            width: 44px; height: 44px; border-radius: 50%;
+            width: 40px; height: 40px; border-radius: 50%;
             background: var(--surface);
             border: 1px solid var(--border-strong);
             display: flex; align-items: center; justify-content: center;
@@ -309,7 +296,7 @@
         }
         .theme-icon {
             position: absolute;
-            width: 19px; height: 19px;
+            width: 18px; height: 18px;
             transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .theme-icon.sun-icon {
@@ -330,7 +317,7 @@
         }
 
         /* ============================================================
-           БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (ПРИГЛУШЁННАЯ, ФОНОВАЯ)
+           БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ
            ============================================================ */
         .brands-section {
             padding: 18px 0 16px;
@@ -361,11 +348,8 @@
             position: relative; display: flex; overflow: hidden;
             user-select: none; gap: 20px;
             contain: layout style paint;
-            -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
         }
 
@@ -374,11 +358,8 @@
         .brands-track {
             flex-shrink: 0; display: flex; align-items: center;
             gap: 20px; min-width: 100%;
-            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-            -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
             will-change: transform;
         }
@@ -405,16 +386,16 @@
         }
 
         /* ============ HERO ============ */
-        .hero { padding: 50px 0 70px; position: relative; }
+        .hero { padding: 40px 0 60px; position: relative; }
 
         .hero-grid {
-            display: grid; grid-template-columns: 1fr 340px 420px;
-            gap: 32px; align-items: center;
+            display: grid; grid-template-columns: minmax(0, 1fr) 280px 400px;
+            gap: 30px; align-items: center;
         }
 
         .hero-left .tag {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 7px 14px; background: rgba(16, 185, 129, 0.1);
+            padding: 6px 14px; background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 100px; font-size: 13px; color: var(--success-text);
             font-weight: 600; margin-bottom: 20px;
@@ -432,8 +413,8 @@
         }
 
         .hero h1 {
-            font-size: 44px; font-weight: 900; line-height: 1.05;
-            letter-spacing: -1.6px; margin-bottom: 18px;
+            font-size: 46px; font-weight: 900; line-height: 1.05;
+            letter-spacing: -1.6px; margin-bottom: 16px;
         }
         .hero h1 .accent {
             background: linear-gradient(120deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
@@ -443,28 +424,45 @@
 
         .hero .subtitle {
             font-size: 16px; color: var(--text-2); line-height: 1.6;
-            max-width: 420px; margin-bottom: 18px;
+            max-width: 420px; margin-bottom: 20px;
         }
 
-        /* ============ МЕТРО-БЕЙДЖ ============ */
-        .metro-badge {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 9px 16px; margin-bottom: 22px;
-            background: rgba(239, 68, 68, 0.07);
-            border: 1px solid rgba(239, 68, 68, 0.22);
-            border-radius: 100px;
-            font-size: 13px; color: var(--text-2);
-            flex-wrap: wrap; justify-content: center;
-            max-width: 100%;
+        /* ============ МЕТРО-БЛОК ============ */
+        .metro-info {
+            display: inline-flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            background: rgba(239, 68, 68, 0.04);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 14px;
+            text-align: left;
         }
-        .metro-badge b { color: var(--text); font-weight: 700; }
         .metro-icon {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 22px; height: 22px; border-radius: 50%;
+            width: 24px; height: 24px; border-radius: 50%;
             background: #ef4444; color: #fff;
-            font-size: 12px; font-weight: 900; letter-spacing: -0.5px;
+            font-size: 13px; font-weight: 900; letter-spacing: -0.5px;
             flex-shrink: 0;
             box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+            margin-top: 1px;
+        }
+        .metro-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            font-size: 14px;
+            color: var(--text-2);
+            line-height: 1.4;
+        }
+        .metro-text b {
+            color: var(--text);
+            font-weight: 700;
+        }
+        .metro-text span {
+            font-size: 12px;
+            color: var(--text-3);
         }
 
         .hero-usp { display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
@@ -498,7 +496,7 @@
         }
         .hero-printer-col::before {
             content: ''; position: absolute;
-            width: 280px; height: 280px; border-radius: 50%;
+            width: 240px; height: 240px; border-radius: 50%;
             background: radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 65%);
             filter: blur(50px); z-index: -1;
             animation: pulseGlow 6s ease-in-out infinite alternate;
@@ -508,7 +506,7 @@
             100% { opacity: 1; transform: scale(1.1); }
         }
         .hero-printer-col img {
-            width: 100%; max-width: 320px; height: auto;
+            width: 100%; max-width: 280px; height: auto;
             object-fit: contain;
             filter: drop-shadow(0 30px 50px rgba(99, 102, 241, 0.35));
             animation: floatY 6s ease-in-out infinite;
@@ -1038,12 +1036,12 @@
             height: 32px; width: auto; max-width: 130px; display: block;
         }
         .footer-metro {
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: flex-start; gap: 8px;
             font-size: 13px; color: var(--text-2);
             margin: 8px 0 6px;
         }
         .footer-metro .metro-icon {
-            width: 20px; height: 20px; font-size: 11px;
+            width: 18px; height: 18px; font-size: 10px; margin-top: 2px;
         }
         .footer-bottom {
             padding-top: 24px; border-top: 1px solid var(--border);
@@ -1122,29 +1120,28 @@
            ============================================================ */
 
         @media (max-width: 1200px) {
-            .hero-grid { grid-template-columns: 1fr 280px 400px; gap: 26px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) 240px 380px; gap: 20px; }
             .hero h1 { font-size: 40px; }
-            .hero-printer-col img { max-width: 260px; }
+            .hero-printer-col img { max-width: 240px; }
+            .header-in { gap: 12px; }
+            .address-link { font-size: 13px; padding: 8px 14px; }
+            .phone-link { font-size: 16px; }
         }
 
-        @media (max-width: 1100px) {
-            .hero-grid { grid-template-columns: 1fr 240px 380px; gap: 24px; }
-            .hero h1 { font-size: 36px; }
-            .hero .subtitle { font-size: 15px; }
-            .hero-printer-col img { max-width: 220px; }
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-left { text-align: center; display: flex; flex-direction: column; align-items: center; }
+            .hero .subtitle { margin-left: auto; margin-right: auto; }
+            .hero-usp { align-items: center; }
+            .hero-stats-inline { justify-content: center; }
+            .hero-printer-col { min-height: 260px; display: none; /* Скрываем принтер на планшетах для экономии места */ }
+
+            .header-in { flex-wrap: wrap; justify-content: center; }
+            .logo-row { order: 1; }
+            .header-cta { order: 2; width: 100%; justify-content: center; }
         }
 
         @media (max-width: 968px) {
-            .hero { padding: 40px 0 60px; }
-            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-            .hero-left { text-align: center; }
-            .hero h1 { font-size: 40px; letter-spacing: -1.3px; }
-            .hero .subtitle { font-size: 16px; margin-left: auto; margin-right: auto; }
-            .hero-usp { align-items: center; }
-            .hero-stats-inline { justify-content: center; }
-            .hero-printer-col { min-height: 260px; }
-            .hero-printer-col img { max-width: 280px; }
-
             .section { padding: 60px 0; }
             .section.reviews-top { padding-top: 24px; }
             .section-head h2 { font-size: 34px; }
@@ -1162,214 +1159,79 @@
             .final-cta { padding: 44px 28px; }
             .final-cta h2 { font-size: 30px; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-
-            .address-link { font-size: 13px; padding: 10px 16px; }
         }
 
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-            .header-in { gap: 14px; }
-            .logo-row { gap: 8px; }
-            .logo-card {
-                height: 58px; padding: 8px 16px; border-radius: 13px;
-            }
-            .logo-card.oncopy img { height: 42px; max-width: 140px; }
-            .logo-card.kyocera img { height: 32px; max-width: 150px; }
-            .collab { width: 30px; height: 30px; }
-            .collab::before, .collab::after { width: 11px; height: 2px; }
+            .header { padding: 12px 0; }
 
-            .header-cta { gap: 10px; }
-            .phone-link { font-size: 15px; }
-            .btn-call { display: none; }
+            .logo-card { height: 50px; padding: 6px 14px; }
+            .logo-card.oncopy img { height: 36px; }
+            .logo-card.kyocera img { height: 28px; }
 
-            .hero-printer-col img,
-            .cartridge-visual img,
-            .printer-3d,
-            .float-badge,
-            .hero-printer-col::before {
-                animation: none !important;
-            }
+            .header-cta { gap: 8px; }
+            .address-link { order: 3; flex: 1 1 100%; justify-content: center; margin-top: 4px; }
+            .phone-link { order: 1; font-size: 15px; }
+            .theme-toggle { order: 2; }
+
+            .hero { padding: 30px 0 50px; }
+            .hero h1 { font-size: 36px; letter-spacing: -1.2px; }
+            .hero-printer-col img, .cartridge-visual img { animation: none !important; }
         }
 
         @media (max-width: 640px) {
-            .topbar { font-size: 12px; padding: 6px 0; }
-            .topbar-in { gap: 10px; }
+            .topbar { font-size: 11px; padding: 6px 0; }
+            .topbar-in { gap: 8px; }
+            .topbar-in .item:nth-child(2) { display: none; } /* Скрываем "ремонт за 2-4 часа" */
 
-            .header { padding: 14px 0; }
-            .header-in {
-                flex-direction: column; align-items: center; gap: 14px;
-            }
-            .logo-row { justify-content: center; gap: 9px; }
-            .logo-card {
-                height: 54px; padding: 7px 14px; border-radius: 12px;
-            }
-            .logo-card.oncopy img { height: 38px; max-width: 130px; }
-            .logo-card.kyocera img { height: 28px; max-width: 140px; }
-            .collab { width: 28px; height: 28px; }
-            .collab::before, .collab::after { width: 10px; height: 2px; }
+            .hero h1 { font-size: 32px; letter-spacing: -1px; }
+            .hero .subtitle { font-size: 15px; }
 
-            .header-cta { width: 100%; justify-content: center; flex-wrap: wrap; }
-            .phone-link {
-                font-size: 16px; padding: 11px 18px;
-                background: var(--surface);
-                border: 1px solid var(--border-strong);
-                border-radius: 100px; box-shadow: var(--inner-light);
-                justify-content: center;
-                flex: 1 1 auto;
-            }
-            .phone-link .meta small { display: none; }
-
-            .theme-toggle {
-                width: 42px; height: 42px;
-            }
-            .theme-icon { width: 17px; height: 17px; }
-
-            .address-link {
-                flex: 1 1 100%;
-                justify-content: center;
-                font-size: 13px; padding: 12px 18px;
-                order: 2;
-            }
-
-            .brands-section { padding: 14px 0 14px; }
-
-            .brands-marquee { gap: 12px; }
-            .brands-marquee + .brands-marquee { margin-top: 10px; }
-            .brands-track { gap: 12px; }
-
-            .brand-card {
-                height: 48px; width: 100px;
-                padding: 8px 12px; border-radius: 9px;
-            }
-            .brand-card img { max-height: 26px; }
-
-            .brands-section::before,
-            .brands-section::after {
-                width: 6%;
-            }
-
-            .hero { padding: 24px 0 40px; }
-            .hero-grid { gap: 28px; }
-            .hero h1 { font-size: 32px; letter-spacing: -1.1px; line-height: 1.1; }
-            .hero .subtitle { font-size: 15px; margin-bottom: 16px; }
-
-            .metro-badge {
-                font-size: 12px; padding: 8px 12px; gap: 8px;
-                margin-bottom: 18px;
-            }
+            .metro-info { padding: 10px 12px; gap: 10px; }
             .metro-icon { width: 20px; height: 20px; font-size: 11px; }
-
-            .hero-usp { gap: 10px; margin-bottom: 20px; }
-            .usp-item { font-size: 13px; }
-            .usp-item .check { width: 20px; height: 20px; font-size: 11px; }
-            .hero-stats-inline { padding-top: 18px; gap: 18px; }
-            .hstat .v { font-size: 22px; }
-            .hstat .l { font-size: 11px; }
-
-            .hero-printer-col { min-height: 220px; }
-            .hero-printer-col img { max-width: 220px; }
-            .hero-printer-col::before { width: 200px; height: 200px; }
+            .metro-text { font-size: 13px; }
 
             .form-card { padding: 24px 20px; border-radius: 20px; }
             .form-card h3 { font-size: 20px; }
-            .form-card .desc { font-size: 13px; margin-bottom: 18px; }
-            .field input { padding: 14px 16px; font-size: 16px; }
-            .btn-submit { padding: 17px 20px; font-size: 15px; }
-            .form-trust { gap: 10px; padding-top: 14px; margin-top: 14px; }
-            .form-trust .t-item { font-size: 11px; }
+            .btn-submit { padding: 16px 20px; font-size: 15px; }
 
             .section { padding: 44px 0; }
-            .section.reviews-top { padding-top: 20px; }
             .section-head { margin-bottom: 32px; }
             .section-head h2 { font-size: 26px; letter-spacing: -0.8px; }
-            .section-head p { font-size: 14px; }
 
             .trust-grid { grid-template-columns: 1fr; gap: 12px; }
-            .trust-item { padding: 16px; }
-            .trust-item .ico { width: 42px; height: 42px; font-size: 20px; }
-            .trust-item .txt b { font-size: 14px; }
-            .trust-item .txt span { font-size: 12px; }
-
             .services-grid { grid-template-columns: 1fr; gap: 14px; }
-            .service-card { padding: 22px 18px; }
-            .service-card .ico { width: 46px; height: 46px; font-size: 22px; margin-bottom: 14px; }
-            .service-card h4 { font-size: 16px; }
-
-            .why-visual { padding: 28px 22px; }
-            .why-visual h3 { font-size: 22px; margin-bottom: 18px; }
-            .why-list li { font-size: 14px; }
             .why-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .why-card { padding: 18px 16px; }
-            .why-card .ico { font-size: 24px; margin-bottom: 8px; }
-            .why-card h5 { font-size: 14px; }
-            .why-card p { font-size: 12px; }
+            .why-card { padding: 16px 14px; }
 
-            .cartridge { padding: 28px 20px; border-radius: 20px; gap: 20px; }
+            .cartridge { padding: 24px 18px; border-radius: 20px; }
             .cartridge-info h3 { font-size: 22px; }
-            .cartridge-info > p { font-size: 14px; margin-bottom: 18px; }
-            .cartridge-benefits { gap: 10px; margin-bottom: 22px; }
-            .cartridge-benefits li { font-size: 14px; }
-            .btn-cartridge { padding: 14px 24px; font-size: 15px; width: 100%; justify-content: center; }
-            .cartridge-visual img { max-width: 200px; }
+            .btn-cartridge { width: 100%; justify-content: center; }
 
-            .price-row { grid-template-columns: 30px 1fr auto; padding: 16px 18px; gap: 12px; }
-            .price-row .num { font-size: 13px; }
+            .price-row { grid-template-columns: 25px 1fr auto; padding: 16px 14px; gap: 10px; }
             .price-row .name b { font-size: 15px; }
-            .price-row .name span { font-size: 12px; }
-            .price-row .amount { font-size: 17px; }
-            .price-row .amount small { font-size: 12px; }
-            .price-note { padding: 14px 18px; font-size: 12px; }
+            .price-row .amount { font-size: 16px; }
 
-            .reviews-widget {
-                max-width: 100%; height: 600px; border-radius: 18px;
-            }
-            .reviews-widget iframe { border-radius: 18px; }
-            .reviews-widget-link {
-                border-radius: 0 0 18px 18px; font-size: 10px; padding: 5px 12px;
-            }
+            .reviews-widget { max-width: 100%; height: 600px; border-radius: 18px; }
+            .reviews-widget-link { border-radius: 0 0 18px 18px; }
 
-            .faq-q { padding: 18px 18px; font-size: 15px; }
-            .faq-q .ic { width: 28px; height: 28px; font-size: 16px; }
-            .faq-item.open .faq-a { padding: 0 18px 18px; }
-            .faq-a p { font-size: 14px; }
-
-            .final-cta { padding: 36px 22px; border-radius: 24px; }
-            .final-cta h2 { font-size: 24px; letter-spacing: -0.8px; }
-            .final-cta p { font-size: 14px; margin-bottom: 24px; }
-            .final-cta .btn-final { padding: 16px 32px; font-size: 15px; width: 100%; justify-content: center; }
+            .final-cta { padding: 36px 20px; border-radius: 24px; }
+            .final-cta h2 { font-size: 24px; }
 
             .footer { padding: 40px 0 100px; margin-top: 40px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; }
-            .footer-bottom { flex-direction: column; text-align: center; font-size: 12px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 
-            .sticky-cta {
-                left: 16px;
-                right: 16px;
-                bottom: 16px;
-                border-radius: 100px;
-            }
-            .sticky-cta-btn {
-                width: 100%;
-                padding: 16px 20px;
-            }
-
-            .toast { right: 12px; left: 12px; bottom: 100px; max-width: none; }
-        }
-
-        @media (max-width: 480px) {
-            .reviews-widget { height: 550px; }
+            .sticky-cta { left: 16px; right: 16px; bottom: 16px; border-radius: 100px; }
+            .sticky-cta-btn { width: 100%; padding: 16px 20px; }
+            .toast { right: 12px; left: 12px; bottom: 90px; max-width: none; }
         }
 
         @media (max-width: 380px) {
-            .logo-card { height: 50px; padding: 6px 12px; }
-            .logo-card.oncopy img { height: 34px; max-width: 115px; }
-            .logo-card.kyocera img { height: 26px; max-width: 120px; }
-            .collab { width: 26px; height: 26px; }
-            .collab::before, .collab::after { width: 9px; height: 1.8px; }
-            .logo-row { gap: 7px; }
-
-            .brand-card { height: 44px; width: 92px; padding: 7px 10px; }
-            .brand-card img { max-height: 24px; }
+            .logo-row { flex-direction: column; gap: 6px; }
+            .collab { display: none; }
+            .hero h1 { font-size: 28px; }
+            .metro-info { flex-direction: column; align-items: center; text-align: center; }
+            .metro-icon { margin-bottom: 4px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1419,13 +1281,6 @@
         </div>
 
         <div class="header-cta">
-            <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76"
-               target="_blank" rel="noopener noreferrer"
-               class="address-link"
-               title="Oncopy на Яндекс.Картах">
-                📍 Москва, ул. Руставели д.3 кор.7
-            </a>
-
             <a href="tel:+79255181455" class="phone-link">
                 <span>📞</span>
                 <span class="meta">
@@ -1433,7 +1288,13 @@
                     <small>Ежедневно с 9:30 до 18:00</small>
                 </span>
             </a>
-            <a href="#form" class="btn-call">Заказать звонок</a>
+
+            <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76"
+               target="_blank" rel="noopener noreferrer"
+               class="address-link"
+               title="Oncopy на Яндекс.Картах">
+                📍 Москва, ул. Руставели д.3 кор.7
+            </a>
 
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Переключить тему">
                 <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1567,9 +1428,12 @@
                     выезд мастера в день заявки, оригинальные запчасти.
                 </p>
 
-                <div class="metro-badge">
-                    <span class="metro-icon">М</span>
-                    <span><b>5 мин</b> от метро <b>Тимирязевская</b> · также Дмитровская, Бутырская</span>
+                <div class="metro-info">
+                    <div class="metro-icon">М</div>
+                    <div class="metro-text">
+                        <div><b>5 минут</b> от метро <b>Тимирязевская</b></div>
+                        <span>Также рядом: <b>Дмитровская</b>, <b>Бутырская</b></span>
+                    </div>
                 </div>
 
                 <div class="hero-usp">
@@ -2087,7 +1951,6 @@
             }
         }
 
-        // Применяем тему, сохранённую до отрисовки (см. inline-скрипт в <head>)
         var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
         setTheme(current);
 
