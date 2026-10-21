@@ -1,18 +1,30 @@
 <!-- oncopy_tech/templates/oncopy_tech/index.html -->
 <!DOCTYPE html>
 {% load static %}
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Oncopy — Ремонт принтеров в Москве | Диагностика бесплатно</title>
     <meta name="description" content="Профессиональный ремонт принтеров и МФУ. Выезд мастера, гарантия 6 месяцев, диагностика бесплатно. +7 (925) 518-14-55">
 
+    <!-- Тема: применяем до отрисовки, чтобы не было вспышки -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('oncopy-theme');
+                document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-    <meta name="theme-color" content="#0a0b14">
+    <meta name="theme-color" content="#f8f9fc">
 
     <!-- Preload критичных изображений: принтер (LCP) — высокий, картридж — низкий -->
     <link rel="preload" as="image" href="{% static 'images/printer.png' %}" fetchpriority="high">
@@ -26,8 +38,69 @@
     <script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
 
     <style>
+        /* =========================================================
+           СВЕТЛАЯ ТЕМА (по умолчанию)
+           ========================================================= */
         :root {
+            --bg: #f8f9fc;
+            --bg-2: #ffffff;
+            --surface: rgba(0, 0, 0, 0.025);
+            --surface-hover: rgba(0, 0, 0, 0.05);
+            --border: rgba(0, 0, 0, 0.08);
+            --border-strong: rgba(0, 0, 0, 0.14);
+
+            --text: #0a0b14;
+            --text-2: #4a4f6a;
+            --text-3: #6d7392;
+            --text-4: #9da2be;
+
+            --brand-1: #6366f1;
+            --brand-2: #8b5cf6;
+            --brand-3: #a855f7;
+            --success: #10b981;
+            --success-text: #059669;
+
+            --header-bg: rgba(255, 255, 255, 0.88);
+            --input-bg: rgba(0, 0, 0, 0.025);
+            --input-bg-focus: rgba(0, 0, 0, 0.05);
+            --input-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+            --toast-bg: rgba(255, 255, 255, 0.97);
+            --overlay-dark: rgba(255, 255, 255, 0.9);
+
+            --logo-card-border: rgba(0, 0, 0, 0.06);
+            --brand-card-border: rgba(0, 0, 0, 0.06);
+            --brand-card-opacity: 0.85;
+
+            --card-bg: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+            --form-card-bg: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+            --price-table-bg: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+            --price-note-bg: rgba(99, 102, 241, 0.05);
+
+            --hstat-gradient: linear-gradient(120deg, #0a0b14 0%, #4a4f6a 100%);
+            --amount-gradient: linear-gradient(120deg, #0a0b14 0%, #4a4f6a 100%);
+
+            --bg-fx:
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.08), transparent 70%),
+                radial-gradient(ellipse 60% 40% at 10% 30%, rgba(168, 85, 247, 0.05), transparent 60%),
+                radial-gradient(ellipse 50% 30% at 90% 70%, rgba(139, 92, 246, 0.04), transparent 60%),
+                linear-gradient(180deg, #f8f9fc 0%, #ffffff 50%, #f8f9fc 100%);
+
+            --bg-grid-line: rgba(0, 0, 0, 0.035);
+
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 2px 4px rgba(0,0,0,0.06), 0 6px 12px rgba(0,0,0,0.05), 0 12px 24px rgba(0,0,0,0.03);
+            --shadow-lg: 0 4px 8px rgba(0,0,0,0.07), 0 12px 24px rgba(0,0,0,0.06), 0 24px 48px rgba(0,0,0,0.04);
+            --shadow-xl: 0 8px 16px rgba(0,0,0,0.08), 0 24px 48px rgba(0,0,0,0.07), 0 48px 96px rgba(0,0,0,0.05);
+
+            --inner-light: inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+
+        /* =========================================================
+           ТЁМНАЯ ТЕМА
+           ========================================================= */
+        [data-theme="dark"] {
             --bg: #0a0b14;
+            --bg-2: #0c0e1a;
             --surface: rgba(255, 255, 255, 0.025);
             --surface-hover: rgba(255, 255, 255, 0.045);
             --border: rgba(255, 255, 255, 0.08);
@@ -38,10 +111,34 @@
             --text-3: #7c82a3;
             --text-4: #565c7c;
 
-            --brand-1: #6366f1;
-            --brand-2: #8b5cf6;
-            --brand-3: #a855f7;
-            --success: #10b981;
+            --success-text: #6ee7b7;
+
+            --header-bg: rgba(10, 11, 20, 0.85);
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --input-bg-focus: rgba(0, 0, 0, 0.4);
+            --input-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+            --toast-bg: rgba(20, 21, 42, 0.95);
+            --overlay-dark: rgba(10, 11, 20, 0.85);
+
+            --logo-card-border: rgba(255, 255, 255, 0.9);
+            --brand-card-border: rgba(255, 255, 255, 0.55);
+            --brand-card-opacity: 0.55;
+
+            --card-bg: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+            --form-card-bg: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            --price-table-bg: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            --price-note-bg: rgba(99, 102, 241, 0.05);
+
+            --hstat-gradient: linear-gradient(120deg, #ffffff 0%, #b4b9d4 100%);
+            --amount-gradient: linear-gradient(120deg, #ffffff 0%, #b4b9d4 100%);
+
+            --bg-fx:
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%),
+                radial-gradient(ellipse 60% 40% at 10% 30%, rgba(168, 85, 247, 0.08), transparent 60%),
+                radial-gradient(ellipse 50% 30% at 90% 70%, rgba(139, 92, 246, 0.06), transparent 60%),
+                linear-gradient(180deg, #0a0b14 0%, #0c0e1a 50%, #0a0b14 100%);
+
+            --bg-grid-line: rgba(255, 255, 255, 0.025);
 
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.25);
             --shadow-md: 0 2px 4px rgba(0,0,0,0.35), 0 6px 12px rgba(0,0,0,0.3), 0 12px 24px rgba(0,0,0,0.2);
@@ -67,17 +164,13 @@
         /* ============ ФОН ============ */
         .bg-fx {
             position: fixed; inset: 0; z-index: -3;
-            background:
-                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%),
-                radial-gradient(ellipse 60% 40% at 10% 30%, rgba(168, 85, 247, 0.08), transparent 60%),
-                radial-gradient(ellipse 50% 30% at 90% 70%, rgba(139, 92, 246, 0.06), transparent 60%),
-                linear-gradient(180deg, #0a0b14 0%, #0c0e1a 50%, #0a0b14 100%);
+            background: var(--bg-fx);
         }
         .bg-grid {
             position: fixed; inset: 0; z-index: -2; pointer-events: none;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+                linear-gradient(var(--bg-grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--bg-grid-line) 1px, transparent 1px);
             background-size: 80px 80px;
             mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 90%);
             -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 90%);
@@ -87,8 +180,8 @@
 
         /* ============ ВЕРХНЯЯ ПОЛОСА ============ */
         .topbar {
-            background: linear-gradient(90deg, rgba(99,102,241,0.15), rgba(168,85,247,0.15));
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(168,85,247,0.12));
+            border-bottom: 1px solid var(--border);
             padding: 8px 0; font-size: 13px; color: var(--text-2);
         }
         .topbar-in {
@@ -101,7 +194,7 @@
         /* ============ ШАПКА ============ */
         .header {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(10, 11, 20, 0.85);
+            background: var(--header-bg);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid var(--border);
@@ -119,17 +212,17 @@
             background: #ffffff; border-radius: 16px;
             padding: 10px 20px; height: 72px;
             box-shadow:
-                0 4px 12px rgba(0,0,0,0.35),
-                0 2px 6px rgba(0,0,0,0.25),
+                0 4px 12px rgba(0,0,0,0.18),
+                0 2px 6px rgba(0,0,0,0.1),
                 inset 0 -1px 0 rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.9);
+            border: 1px solid var(--logo-card-border);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .logo-card:hover {
             transform: translateY(-2px);
             box-shadow:
-                0 8px 20px rgba(0,0,0,0.4),
-                0 4px 10px rgba(0,0,0,0.3),
+                0 8px 20px rgba(0,0,0,0.25),
+                0 4px 10px rgba(0,0,0,0.15),
                 inset 0 -1px 0 rgba(0,0,0,0.05);
         }
         .logo-card img {
@@ -153,7 +246,7 @@
         .collab::before { transform: rotate(45deg); }
         .collab::after { transform: rotate(-45deg); }
 
-        .header-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
         .phone-link {
             display: inline-flex; align-items: center; gap: 12px;
             text-decoration: none; color: var(--text);
@@ -193,6 +286,49 @@
             box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
         }
 
+        /* ============ КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ============ */
+        .theme-toggle {
+            position: relative;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border-strong);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; box-shadow: var(--inner-light);
+            transition: background 0.2s, border-color 0.2s, transform 0.2s, color 0.2s;
+            padding: 0;
+            color: var(--text-2);
+            flex-shrink: 0;
+            font-family: inherit;
+        }
+        .theme-toggle:hover {
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
+            color: var(--brand-2);
+        }
+        .theme-icon {
+            position: absolute;
+            width: 19px; height: 19px;
+            transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .theme-icon.sun-icon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.5);
+        }
+        .theme-icon.moon-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        [data-theme="dark"] .theme-icon.sun-icon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        [data-theme="dark"] .theme-icon.moon-icon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.5);
+        }
+
         /* ============================================================
            БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (ПРИГЛУШЁННАЯ, ФОНОВАЯ)
            ============================================================ */
@@ -200,7 +336,7 @@
             padding: 18px 0 16px;
             overflow: hidden;
             position: relative;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid var(--border);
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.004), transparent);
         }
         .brands-section::before,
@@ -214,11 +350,11 @@
         }
         .brands-section::before {
             left: 0;
-            background: linear-gradient(90deg, var(--bg) 0%, rgba(10, 11, 20, 0) 100%);
+            background: linear-gradient(90deg, var(--bg) 0%, rgba(0, 0, 0, 0) 100%);
         }
         .brands-section::after {
             right: 0;
-            background: linear-gradient(270deg, var(--bg) 0%, rgba(10, 11, 20, 0) 100%);
+            background: linear-gradient(270deg, var(--bg) 0%, rgba(0, 0, 0, 0) 100%);
         }
 
         .brands-marquee {
@@ -251,11 +387,11 @@
             flex-shrink: 0; display: flex; align-items: center; justify-content: center;
             height: 58px; width: 132px; padding: 10px 16px;
             background: #ffffff; border-radius: 11px;
-            border: 1px solid rgba(255, 255, 255, 0.55);
-            opacity: 0.55;
+            border: 1px solid var(--brand-card-border);
+            opacity: var(--brand-card-opacity);
             box-shadow:
-                0 2px 6px rgba(0, 0, 0, 0.22),
-                0 1px 3px rgba(0, 0, 0, 0.14);
+                0 2px 6px rgba(0, 0, 0, 0.12),
+                0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         .brand-card img {
@@ -280,7 +416,7 @@
             display: inline-flex; align-items: center; gap: 8px;
             padding: 7px 14px; background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 100px; font-size: 13px; color: #6ee7b7;
+            border-radius: 100px; font-size: 13px; color: var(--success-text);
             font-weight: 600; margin-bottom: 20px;
         }
         .tag .pulse {
@@ -307,7 +443,28 @@
 
         .hero .subtitle {
             font-size: 16px; color: var(--text-2); line-height: 1.6;
-            max-width: 420px; margin-bottom: 26px;
+            max-width: 420px; margin-bottom: 18px;
+        }
+
+        /* ============ МЕТРО-БЕЙДЖ ============ */
+        .metro-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 9px 16px; margin-bottom: 22px;
+            background: rgba(239, 68, 68, 0.07);
+            border: 1px solid rgba(239, 68, 68, 0.22);
+            border-radius: 100px;
+            font-size: 13px; color: var(--text-2);
+            flex-wrap: wrap; justify-content: center;
+            max-width: 100%;
+        }
+        .metro-badge b { color: var(--text); font-weight: 700; }
+        .metro-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #ef4444; color: #fff;
+            font-size: 12px; font-weight: 900; letter-spacing: -0.5px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
         }
 
         .hero-usp { display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
@@ -328,7 +485,7 @@
         .hstat { display: flex; flex-direction: column; gap: 2px; }
         .hstat .v {
             font-size: 26px; font-weight: 900; letter-spacing: -0.8px;
-            background: linear-gradient(120deg, #ffffff 0%, #b4b9d4 100%);
+            background: var(--hstat-gradient);
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -342,7 +499,7 @@
         .hero-printer-col::before {
             content: ''; position: absolute;
             width: 280px; height: 280px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.4), transparent 65%);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.35), transparent 65%);
             filter: blur(50px); z-index: -1;
             animation: pulseGlow 6s ease-in-out infinite alternate;
         }
@@ -353,7 +510,7 @@
         .hero-printer-col img {
             width: 100%; max-width: 320px; height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 30px 50px rgba(99, 102, 241, 0.4));
+            filter: drop-shadow(0 30px 50px rgba(99, 102, 241, 0.35));
             animation: floatY 6s ease-in-out infinite;
         }
         @keyframes floatY {
@@ -364,7 +521,7 @@
         /* ============ ФОРМА ============ */
         .form-card {
             position: relative;
-            background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+            background: var(--form-card-bg);
             border: 1px solid var(--border-strong);
             border-radius: 24px; padding: 32px 28px;
             box-shadow: var(--shadow-xl), var(--inner-light);
@@ -394,18 +551,18 @@
         }
         .field input {
             width: 100%; padding: 15px 18px;
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--input-bg);
             border: 1px solid var(--border);
             border-radius: 14px; color: var(--text);
             font-size: 16px; font-weight: 600; font-family: inherit;
             outline: none; transition: all 0.2s;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--input-shadow);
         }
         .field input::placeholder { color: var(--text-4); font-weight: 400; }
         .field input:focus {
             border-color: rgba(99, 102, 241, 0.6);
-            background: rgba(0, 0, 0, 0.4);
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.4), 0 0 0 4px rgba(99, 102, 241, 0.15);
+            background: var(--input-bg-focus);
+            box-shadow: var(--input-shadow), 0 0 0 4px rgba(99, 102, 241, 0.15);
         }
 
         .captcha-field { margin-bottom: 14px; }
@@ -454,6 +611,7 @@
         .form-privacy a:hover { color: var(--brand-2); }
 
         .form-response { margin-top: 10px; font-size: 13px; text-align: center; min-height: 18px; }
+        .form-success { color: var(--success-text); }
 
         .form-trust {
             display: flex; align-items: center; justify-content: center;
@@ -541,7 +699,7 @@
         .reviews-widget-link {
             position: absolute; bottom: 0; left: 0; right: 0;
             display: block; padding: 6px 16px;
-            background: rgba(10, 11, 20, 0.85);
+            background: var(--overlay-dark);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             color: var(--text-3); font-size: 11px;
@@ -557,7 +715,7 @@
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .service-card {
             padding: 28px 24px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+            background: var(--card-bg);
             border: 1px solid var(--border); border-radius: 18px;
             box-shadow: var(--shadow-md), var(--inner-light);
             transition: all 0.3s; position: relative; overflow: hidden;
@@ -588,7 +746,7 @@
             padding: 6px 14px; background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.25);
             border-radius: 100px; font-size: 13px;
-            font-weight: 700; color: #6ee7b7;
+            font-weight: 700; color: var(--success-text);
         }
 
         /* ============ ПОЧЕМУ МЫ ============ */
@@ -673,7 +831,7 @@
             padding: 6px 14px; background: rgba(34, 197, 94, 0.12);
             border: 1px solid rgba(34, 197, 94, 0.3);
             border-radius: 100px; font-size: 12px;
-            font-weight: 700; color: #6ee7b7; margin-bottom: 16px;
+            font-weight: 700; color: var(--success-text); margin-bottom: 16px;
         }
         .cartridge-info h3 {
             font-size: 32px; font-weight: 900;
@@ -734,7 +892,7 @@
 
         /* ============ ПРАЙС ============ */
         .price-table {
-            background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            background: var(--price-table-bg);
             border: 1px solid var(--border); border-radius: 24px;
             overflow: hidden; box-shadow: var(--shadow-lg), var(--inner-light);
         }
@@ -745,7 +903,7 @@
             transition: background 0.2s;
         }
         .price-row:last-child { border-bottom: none; }
-        .price-row:hover { background: rgba(255, 255, 255, 0.02); }
+        .price-row:hover { background: var(--surface-hover); }
         .price-row .num {
             font-size: 15px; font-weight: 700;
             color: var(--text-4); font-variant-numeric: tabular-nums;
@@ -756,7 +914,7 @@
         .price-row .amount {
             font-size: 24px; font-weight: 900;
             letter-spacing: -0.5px;
-            background: linear-gradient(120deg, #ffffff, #b4b9d4);
+            background: var(--amount-gradient);
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: right;
@@ -766,7 +924,7 @@
             -webkit-text-fill-color: var(--text-3); margin-right: 4px;
         }
         .price-note {
-            padding: 18px 32px; background: rgba(99, 102, 241, 0.05);
+            padding: 18px 32px; background: var(--price-note-bg);
             border-top: 1px solid var(--border);
             font-size: 13px; color: var(--text-3); text-align: center;
         }
@@ -874,10 +1032,18 @@
             background: #ffffff; border-radius: 10px;
             padding: 6px 14px; display: inline-flex;
             align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .footer-logo-card img {
             height: 32px; width: auto; max-width: 130px; display: block;
+        }
+        .footer-metro {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13px; color: var(--text-2);
+            margin: 8px 0 6px;
+        }
+        .footer-metro .metro-icon {
+            width: 20px; height: 20px; font-size: 11px;
         }
         .footer-bottom {
             padding-top: 24px; border-top: 1px solid var(--border);
@@ -886,9 +1052,7 @@
         }
 
         /* ============================================================
-           STICKY CTA — плавающая кнопка «Оставить заявку»
-           На ПК: компактная пилюля в правом нижнем углу
-           На мобиле: полноширинная нижняя панель (см. media query)
+           STICKY CTA
            ============================================================ */
         .sticky-cta {
             display: block;
@@ -898,7 +1062,7 @@
             left: auto;
             z-index: 999;
             padding: 4px;
-            background: rgba(10, 11, 20, 0.9);
+            background: var(--header-bg);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 1px solid var(--border-strong);
@@ -925,11 +1089,11 @@
         .toast {
             position: fixed; bottom: 100px; right: 30px;
             padding: 16px 24px;
-            background: rgba(20, 21, 42, 0.95);
+            background: var(--toast-bg);
             backdrop-filter: blur(30px) saturate(180%);
             -webkit-backdrop-filter: blur(30px) saturate(180%);
             border: 1px solid var(--border-strong);
-            border-radius: 14px; color: #fff;
+            border-radius: 14px; color: var(--text);
             font-weight: 600; font-size: 14px;
             transform: translateY(120px); opacity: 0;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1029,7 +1193,7 @@
 
         @media (max-width: 640px) {
             .topbar { font-size: 12px; padding: 6px 0; }
-            .topbar-in { gap: 12px; }
+            .topbar-in { gap: 10px; }
 
             .header { padding: 14px 0; }
             .header-in {
@@ -1055,6 +1219,11 @@
             }
             .phone-link .meta small { display: none; }
 
+            .theme-toggle {
+                width: 42px; height: 42px;
+            }
+            .theme-icon { width: 17px; height: 17px; }
+
             .address-link {
                 flex: 1 1 100%;
                 justify-content: center;
@@ -1062,7 +1231,6 @@
                 order: 2;
             }
 
-            /* Компактная и приглушённая карусель на мобилке */
             .brands-section { padding: 14px 0 14px; }
 
             .brands-marquee { gap: 12px; }
@@ -1072,7 +1240,6 @@
             .brand-card {
                 height: 48px; width: 100px;
                 padding: 8px 12px; border-radius: 9px;
-                opacity: 0.6;
             }
             .brand-card img { max-height: 26px; }
 
@@ -1084,7 +1251,14 @@
             .hero { padding: 24px 0 40px; }
             .hero-grid { gap: 28px; }
             .hero h1 { font-size: 32px; letter-spacing: -1.1px; line-height: 1.1; }
-            .hero .subtitle { font-size: 15px; margin-bottom: 20px; }
+            .hero .subtitle { font-size: 15px; margin-bottom: 16px; }
+
+            .metro-badge {
+                font-size: 12px; padding: 8px 12px; gap: 8px;
+                margin-bottom: 18px;
+            }
+            .metro-icon { width: 20px; height: 20px; font-size: 11px; }
+
             .hero-usp { gap: 10px; margin-bottom: 20px; }
             .usp-item { font-size: 13px; }
             .usp-item .check { width: 20px; height: 20px; font-size: 11px; }
@@ -1168,7 +1342,6 @@
             .footer-grid { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; }
             .footer-bottom { flex-direction: column; text-align: center; font-size: 12px; }
 
-            /* Sticky CTA на мобилке — полноширинная нижняя панель */
             .sticky-cta {
                 left: 16px;
                 right: 16px;
@@ -1227,6 +1400,7 @@
         <span class="item">🚀 <b>Бесплатный выезд</b> мастера по Москве</span>
         <span class="item">⚡ Ремонт за <b>2–4 часа</b></span>
         <span class="item">🛡️ <b>Гарантия 6 месяцев</b></span>
+        <span class="item">🚇 <b>5 мин</b> от метро Тимирязевская</span>
     </div>
 </div>
 
@@ -1260,14 +1434,30 @@
                 </span>
             </a>
             <a href="#form" class="btn-call">Заказать звонок</a>
+
+            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Переключить тему">
+                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                </svg>
+            </button>
         </div>
     </div>
 </header>
 
-<!-- ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (СРАЗУ ПОД ШАПКОЙ) ============ -->
+<!-- ============ БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ ============ -->
 <section class="brands-section">
 
-    <!-- Ряд 1: движется влево -->
     <div class="brands-marquee">
         <div class="brands-track">
             <div class="brand-card"><img src="{% static 'images/brands/avision.png' %}" alt="Avision" loading="lazy" decoding="async" width="150" height="38"></div>
@@ -1313,7 +1503,6 @@
         </div>
     </div>
 
-    <!-- Ряд 2: движется вправо -->
     <div class="brands-marquee">
         <div class="brands-track reverse">
             <div class="brand-card"><img src="{% static 'images/brands/katusha.png' %}" alt="Katusha" loading="lazy" decoding="async" width="150" height="38"></div>
@@ -1378,6 +1567,11 @@
                     выезд мастера в день заявки, оригинальные запчасти.
                 </p>
 
+                <div class="metro-badge">
+                    <span class="metro-icon">М</span>
+                    <span><b>5 мин</b> от метро <b>Тимирязевская</b> · также Дмитровская, Бутырская</span>
+                </div>
+
                 <div class="hero-usp">
                     <div class="usp-item">
                         <span class="check">✓</span>
@@ -1409,7 +1603,6 @@
                 </div>
             </div>
 
-            <!-- Принтер: eager + high priority (LCP) -->
             <div class="hero-printer-col reveal">
                 <img src="{% static 'images/printer.png' %}"
                      alt="Принтер"
@@ -1671,7 +1864,6 @@
                     🛒 Узнать стоимость картриджа
                 </a>
             </div>
-            <!-- Картридж: fetchpriority low, но грузится сразу (не lazy) -->
             <div class="cartridge-visual">
                 <img src="{% static 'images/cartridge.png' %}"
                      alt="Картридж"
@@ -1787,6 +1979,15 @@
             </div>
             <div class="faq-item reveal">
                 <div class="faq-q">
+                    <span>Как добраться?</span>
+                    <span class="ic">+</span>
+                </div>
+                <div class="faq-a">
+                    <p>Мы находимся по адресу: <b>Москва, ул. Руставели д.3 кор.7</b>. Удобнее всего добираться от метро <b>Тимирязевская</b> — около 5 минут пешком. Также рядом станции <b>Дмитровская</b> и <b>Бутырская</b> (МЦД).</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-q">
                     <span>Что если принтер не подлежит ремонту?</span>
                     <span class="ic">+</span>
                 </div>
@@ -1847,6 +2048,10 @@
                 <a href="tel:+79255181455"><b>+7 (925) 518-14-55</b></a>
                 <a href="mailto:info@oncopy.ru">info@oncopy.ru</a>
                 <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76" target="_blank" rel="noopener">📍 Москва, ул. Руставели д.3 кор.7</a>
+                <div class="footer-metro">
+                    <span class="metro-icon">М</span>
+                    <span>Тимирязевская · Дмитровская · Бутырская</span>
+                </div>
                 <p>Ежедневно с 9:30 до 18:00</p>
             </div>
         </div>
@@ -1857,7 +2062,7 @@
     </div>
 </footer>
 
-<!-- ============ STICKY CTA (ПК + мобилка) ============ -->
+<!-- ============ STICKY CTA ============ -->
 <div class="sticky-cta">
     <a href="#form" class="sticky-cta-btn">
         📞 Оставить заявку
@@ -1868,6 +2073,30 @@
 <div class="toast" id="toast"></div>
 
 <script>
+    /* ===== Переключение темы ===== */
+    (function () {
+        var root = document.documentElement;
+        var toggle = document.getElementById('themeToggle');
+        var metaTheme = document.querySelector('meta[name="theme-color"]');
+
+        function setTheme(theme) {
+            root.setAttribute('data-theme', theme);
+            try { localStorage.setItem('oncopy-theme', theme); } catch (e) {}
+            if (metaTheme) {
+                metaTheme.setAttribute('content', theme === 'dark' ? '#0a0b14' : '#f8f9fc');
+            }
+        }
+
+        // Применяем тему, сохранённую до отрисовки (см. inline-скрипт в <head>)
+        var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+        setTheme(current);
+
+        toggle.addEventListener('click', function () {
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+        });
+    })();
+
     /* ===== Маска телефона ===== */
     const phoneInput = document.getElementById('phoneInput');
 
@@ -1932,7 +2161,7 @@
             if (data.success) {
                 showToast('✅ Заявка принята! Перезвоним в течение 10 минут', 'success');
                 document.getElementById('phoneInput').value = '';
-                status.innerHTML = '<span style="color: #6ee7b7;">✓ Готово! Ожидайте звонка мастера.</span>';
+                status.innerHTML = '<span class="form-success">✓ Готово! Ожидайте звонка мастера.</span>';
                 if (window.smartCaptcha) window.smartCaptcha.reset();
             } else {
                 showToast('❌ ' + (data.error || 'Ошибка отправки'), 'error');
@@ -2011,7 +2240,6 @@
 
     /* =========================================================
        ПЛАВНАЯ КАРУСЕЛЬ БРЕНДОВ ЧЕРЕЗ requestAnimationFrame
-       Без паузы при наведении — движение непрерывное.
        ========================================================= */
     (function initBrandsMarquee() {
         const marquees = document.querySelectorAll('.brands-marquee');
