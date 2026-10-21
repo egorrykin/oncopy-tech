@@ -1114,7 +1114,7 @@
             .hero .subtitle { margin-left: auto; margin-right: auto; }
             .hero-usp { align-items: center; }
             .hero-stats-inline { justify-content: center; }
-            .hero-printer-col { min-height: 260px; display: none; /* Скрываем принтер на планшетах для экономии места */ }
+            .hero-printer-col { min-height: 260px; display: none; }
         }
 
         @media (max-width: 968px) {
@@ -1149,31 +1149,49 @@
             }
             .logo-row {
                 justify-content: center;
+                gap: 8px;
             }
+
+            .logo-card {
+                height: 46px;
+                padding: 6px 12px;
+                border-radius: 10px;
+            }
+            .logo-card.oncopy img { height: 30px; }
+            .logo-card.kyocera img { height: 24px; }
+            .collab { display: none; }
 
             .header-cta {
-                display: grid;
-                grid-template-columns: 1fr auto;
-                gap: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
                 align-items: center;
-            }
-            .phone-link {
-                grid-column: 1;
-                justify-content: flex-start;
-                padding-left: 4px;
-                font-size: 15px;
-            }
-            .theme-toggle {
-                grid-column: 2;
-                justify-self: end;
             }
 
-            /* Блок адреса и метро занимает всю ширину */
+            .phone-link {
+                flex: 1;
+                justify-content: center;
+                background: var(--surface);
+                border: 1px solid var(--border-strong);
+                padding: 10px 14px;
+                border-radius: 12px;
+                font-size: 15px;
+                box-shadow: var(--shadow-sm);
+            }
+            .phone-link .meta small { display: none; } /* Скрываем график для компактности */
+
+            .theme-toggle {
+                width: 42px;
+                height: 42px;
+                border-radius: 12px;
+            }
+
             .address-link {
-                grid-column: 1 / -1;
+                width: 100%;
                 align-items: center;
                 text-align: center;
-                padding: 10px;
+                padding: 10px 14px;
+                gap: 6px;
                 border-radius: 12px;
             }
             .address-main {
@@ -1183,11 +1201,10 @@
             .address-metro {
                 justify-content: center;
                 font-size: 11px;
+                padding-top: 4px;
+                border-top: 1px dashed var(--border);
+                width: 100%;
             }
-
-            .logo-card { height: 50px; padding: 6px 14px; }
-            .logo-card.oncopy img { height: 36px; }
-            .logo-card.kyocera img { height: 28px; }
 
             .hero { padding: 30px 0 50px; }
             .hero h1 { font-size: 36px; letter-spacing: -1.2px; }
@@ -1197,8 +1214,8 @@
         @media (max-width: 640px) {
             .topbar { font-size: 11px; padding: 6px 0; }
             .topbar-in { gap: 8px; }
-            .topbar-in .item:nth-child(2) { display: none; } /* Скрываем "ремонт за 2-4 часа" */
-            .topbar-in .item.metro-topbar { display: none; } /* Скрываем метро в топбаре, т.к. оно теперь в шапке */
+            .topbar-in .item:nth-child(2) { display: none; }
+            .topbar-in .item.metro-topbar { display: none; }
 
             .hero h1 { font-size: 32px; letter-spacing: -1px; }
             .hero .subtitle { font-size: 15px; }
@@ -1240,7 +1257,6 @@
 
         @media (max-width: 380px) {
             .logo-row { flex-direction: column; gap: 6px; }
-            .collab { display: none; }
             .hero h1 { font-size: 28px; }
             .phone-link { font-size: 14px; }
             .address-main { font-size: 12px; }
