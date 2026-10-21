@@ -247,6 +247,7 @@
         .collab::after { transform: rotate(-45deg); }
 
         .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; }
+
         .phone-link {
             display: inline-flex; align-items: center; gap: 10px;
             text-decoration: none; color: var(--text);
@@ -257,20 +258,35 @@
         .phone-link .meta { display: flex; flex-direction: column; line-height: 1.15; }
         .phone-link .meta small { font-size: 11px; font-weight: 400; color: var(--text-3); }
 
+        /* ============ АДРЕС + МЕТРО В ШАПКЕ ============ */
         .address-link {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 10px 18px; border-radius: 100px;
+            display: inline-flex; flex-direction: column; align-items: flex-start;
+            gap: 4px; padding: 10px 16px; border-radius: 14px;
             background: var(--surface); border: 1px solid var(--border-strong);
-            color: var(--text-2); font-weight: 500; font-size: 14px;
             text-decoration: none; transition: all 0.25s;
             box-shadow: var(--inner-light);
-            white-space: nowrap;
         }
         .address-link:hover {
             background: var(--surface-hover); transform: translateY(-2px);
             border-color: rgba(99, 102, 241, 0.5);
-            color: var(--text);
             box-shadow: var(--inner-light), 0 8px 24px rgba(99, 102, 241, 0.25);
+        }
+        .address-main {
+            display: flex; align-items: center; gap: 6px;
+            font-weight: 600; font-size: 14px; color: var(--text);
+            white-space: nowrap;
+        }
+        .address-metro {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 11px; color: var(--text-3);
+            white-space: nowrap;
+        }
+        .metro-icon-sm {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #ef4444; color: #fff;
+            font-size: 9px; font-weight: 900; letter-spacing: -0.5px;
+            flex-shrink: 0;
         }
 
         /* ============ КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ ============ */
@@ -424,45 +440,7 @@
 
         .hero .subtitle {
             font-size: 16px; color: var(--text-2); line-height: 1.6;
-            max-width: 420px; margin-bottom: 20px;
-        }
-
-        /* ============ МЕТРО-БЛОК ============ */
-        .metro-info {
-            display: inline-flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 16px;
-            margin-bottom: 24px;
-            background: rgba(239, 68, 68, 0.04);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            border-radius: 14px;
-            text-align: left;
-        }
-        .metro-icon {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 24px; height: 24px; border-radius: 50%;
-            background: #ef4444; color: #fff;
-            font-size: 13px; font-weight: 900; letter-spacing: -0.5px;
-            flex-shrink: 0;
-            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
-            margin-top: 1px;
-        }
-        .metro-text {
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            font-size: 14px;
-            color: var(--text-2);
-            line-height: 1.4;
-        }
-        .metro-text b {
-            color: var(--text);
-            font-weight: 700;
-        }
-        .metro-text span {
-            font-size: 12px;
-            color: var(--text-3);
+            max-width: 420px; margin-bottom: 24px;
         }
 
         .hero-usp { display: flex; flex-direction: column; gap: 10px; margin-bottom: 26px; }
@@ -1124,7 +1102,9 @@
             .hero h1 { font-size: 40px; }
             .hero-printer-col img { max-width: 240px; }
             .header-in { gap: 12px; }
-            .address-link { font-size: 13px; padding: 8px 14px; }
+            .address-link { padding: 8px 12px; }
+            .address-main { font-size: 13px; }
+            .address-metro { font-size: 10px; }
             .phone-link { font-size: 16px; }
         }
 
@@ -1135,10 +1115,6 @@
             .hero-usp { align-items: center; }
             .hero-stats-inline { justify-content: center; }
             .hero-printer-col { min-height: 260px; display: none; /* Скрываем принтер на планшетах для экономии места */ }
-
-            .header-in { flex-wrap: wrap; justify-content: center; }
-            .logo-row { order: 1; }
-            .header-cta { order: 2; width: 100%; justify-content: center; }
         }
 
         @media (max-width: 968px) {
@@ -1165,14 +1141,53 @@
             .container { padding: 0 16px; }
             .header { padding: 12px 0; }
 
+            /* Мобильная сетка шапки */
+            .header-in {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+            .logo-row {
+                justify-content: center;
+            }
+
+            .header-cta {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 10px;
+                align-items: center;
+            }
+            .phone-link {
+                grid-column: 1;
+                justify-content: flex-start;
+                padding-left: 4px;
+                font-size: 15px;
+            }
+            .theme-toggle {
+                grid-column: 2;
+                justify-self: end;
+            }
+
+            /* Блок адреса и метро занимает всю ширину */
+            .address-link {
+                grid-column: 1 / -1;
+                align-items: center;
+                text-align: center;
+                padding: 10px;
+                border-radius: 12px;
+            }
+            .address-main {
+                justify-content: center;
+                font-size: 13px;
+            }
+            .address-metro {
+                justify-content: center;
+                font-size: 11px;
+            }
+
             .logo-card { height: 50px; padding: 6px 14px; }
             .logo-card.oncopy img { height: 36px; }
             .logo-card.kyocera img { height: 28px; }
-
-            .header-cta { gap: 8px; }
-            .address-link { order: 3; flex: 1 1 100%; justify-content: center; margin-top: 4px; }
-            .phone-link { order: 1; font-size: 15px; }
-            .theme-toggle { order: 2; }
 
             .hero { padding: 30px 0 50px; }
             .hero h1 { font-size: 36px; letter-spacing: -1.2px; }
@@ -1183,13 +1198,10 @@
             .topbar { font-size: 11px; padding: 6px 0; }
             .topbar-in { gap: 8px; }
             .topbar-in .item:nth-child(2) { display: none; } /* Скрываем "ремонт за 2-4 часа" */
+            .topbar-in .item.metro-topbar { display: none; } /* Скрываем метро в топбаре, т.к. оно теперь в шапке */
 
             .hero h1 { font-size: 32px; letter-spacing: -1px; }
             .hero .subtitle { font-size: 15px; }
-
-            .metro-info { padding: 10px 12px; gap: 10px; }
-            .metro-icon { width: 20px; height: 20px; font-size: 11px; }
-            .metro-text { font-size: 13px; }
 
             .form-card { padding: 24px 20px; border-radius: 20px; }
             .form-card h3 { font-size: 20px; }
@@ -1230,8 +1242,9 @@
             .logo-row { flex-direction: column; gap: 6px; }
             .collab { display: none; }
             .hero h1 { font-size: 28px; }
-            .metro-info { flex-direction: column; align-items: center; text-align: center; }
-            .metro-icon { margin-bottom: 4px; }
+            .phone-link { font-size: 14px; }
+            .address-main { font-size: 12px; }
+            .address-metro { font-size: 10px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1262,7 +1275,7 @@
         <span class="item">🚀 <b>Бесплатный выезд</b> мастера по Москве</span>
         <span class="item">⚡ Ремонт за <b>2–4 часа</b></span>
         <span class="item">🛡️ <b>Гарантия 6 месяцев</b></span>
-        <span class="item">🚇 <b>10 мин</b> от метро Тимирязевская</span>
+        <span class="item metro-topbar">🚇 <b>10 мин</b> от метро Тимирязевская</span>
     </div>
 </div>
 
@@ -1289,13 +1302,6 @@
                 </span>
             </a>
 
-            <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76"
-               target="_blank" rel="noopener noreferrer"
-               class="address-link"
-               title="Oncopy на Яндекс.Картах">
-                📍 Москва, ул. Руставели д.3 кор.7
-            </a>
-
             <button type="button" class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Переключить тему">
                 <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <circle cx="12" cy="12" r="5"/>
@@ -1312,6 +1318,20 @@
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
                 </svg>
             </button>
+
+            <a href="https://yandex.ru/maps/213/moscow/?ll=37.585919%2C55.813115&mode=poi&poi%5Bpoint%5D=37.584936%2C55.813560&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D98079126676&z=18.76"
+               target="_blank" rel="noopener noreferrer"
+               class="address-link"
+               title="Oncopy на Яндекс.Картах">
+                <div class="address-main">
+                    <span>📍</span>
+                    <span>Москва, ул. Руставели д.3 кор.7</span>
+                </div>
+                <div class="address-metro">
+                    <span class="metro-icon-sm">М</span>
+                    <span>Тимирязевская · Дмитровская · Бутырская</span>
+                </div>
+            </a>
         </div>
     </div>
 </header>
@@ -1427,14 +1447,6 @@
                     Профессиональный сервис в Москве. Бесплатная диагностика,
                     выезд мастера в день заявки, оригинальные запчасти.
                 </p>
-
-                <div class="metro-info">
-                    <div class="metro-icon">М</div>
-                    <div class="metro-text">
-                        <div><b>5 минут</b> от метро <b>Тимирязевская</b></div>
-                        <span>Также рядом: <b>Дмитровская</b>, <b>Бутырская</b></span>
-                    </div>
-                </div>
 
                 <div class="hero-usp">
                     <div class="usp-item">
