@@ -68,8 +68,11 @@
             --overlay-dark: rgba(255, 255, 255, 0.9);
 
             --logo-card-border: rgba(0, 0, 0, 0.06);
+
+            /* Настройки карусели для светлой темы */
             --brand-card-border: rgba(0, 0, 0, 0.04);
             --brand-card-bg: rgba(0, 0, 0, 0.02);
+            --brand-card-hover-bg: #ffffff;
             --brand-card-opacity: 0.6;
 
             --card-bg: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
@@ -122,9 +125,12 @@
             --overlay-dark: rgba(10, 11, 20, 0.85);
 
             --logo-card-border: rgba(255, 255, 255, 0.9);
-            --brand-card-border: rgba(255, 255, 255, 0.06);
-            --brand-card-bg: rgba(255, 255, 255, 0.02);
-            --brand-card-opacity: 0.4;
+
+            /* Настройки карусели для темной темы (белые подложки) */
+            --brand-card-border: transparent;
+            --brand-card-bg: #ffffff;
+            --brand-card-hover-bg: #ffffff;
+            --brand-card-opacity: 0.5;
 
             --card-bg: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
             --form-card-bg: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
@@ -364,7 +370,7 @@
         [data-theme="dark"] .theme-icon.moon-icon { opacity: 0; transform: rotate(-90deg) scale(0.5); }
 
         /* ============================================================
-           БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ (СТАЛА АККУРАТНОЙ)
+           БРЕНДЫ — ДВОЙНАЯ КАРУСЕЛЬ
            ============================================================ */
         .brands-section {
             padding: 20px 0;
@@ -422,11 +428,16 @@
             transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
 
+        /* Исправленный hover для темной темы */
         .brand-card:hover {
             opacity: 1;
             transform: translateY(-2px);
-            background: var(--bg-2);
+            background: var(--brand-card-hover-bg);
             box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] .brand-card:hover {
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2); /* Красивая подсветка для белой карточки */
         }
 
         .brand-card img {
