@@ -210,6 +210,8 @@
             background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(168,85,247,0.12));
             border-bottom: 1px solid var(--border);
             padding: 8px 0; font-size: 13px; color: var(--text-2);
+            width: 100%;
+            max-width: 100vw;
         }
         .topbar-in {
             display: flex; justify-content: center; align-items: center;
@@ -218,7 +220,7 @@
         .topbar-in .item { display: inline-flex; align-items: center; gap: 6px; }
         .topbar-in .item b { color: var(--text); font-weight: 700; }
 
-        /* ============ ШАПКА (ГЛАВНЫЙ АКЦЕНТ) ============ */
+        /* ============ ШАПКА (ИСПРАВЛЕНА) ============ */
         .header {
             position: sticky; top: 0; z-index: 100;
             background: var(--header-bg);
@@ -226,10 +228,15 @@
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-bottom: 1px solid var(--border);
             padding: 12px 0;
+            width: 100%;
+            max-width: 100vw; /* Защита от расширения */
+            overflow: hidden; /* Подстраховка */
         }
         .header-in {
             display: flex; justify-content: space-between; align-items: center;
-            gap: 20px; flex-wrap: nowrap;
+            gap: 20px;
+            flex-wrap: wrap; /* Позволяет элементам переноситься, если не влезают */
+            width: 100%;
         }
 
         .logo-row { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; flex-shrink: 0; }
@@ -274,7 +281,10 @@
         .collab::before { transform: rotate(45deg); }
         .collab::after { transform: rotate(-45deg); }
 
-        .header-cta { display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; }
+        .header-cta {
+            display: flex; align-items: center; gap: 14px;
+            flex-wrap: wrap; /* Позволяет перенос на узких экранах */
+        }
 
         .phone-link {
             display: inline-flex; align-items: center; gap: 10px;
@@ -1223,7 +1233,7 @@
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
         }
 
-        /* ============ МОБИЛЬНАЯ ШАПКА (ОПТИМИЗИРОВАНА) ============ */
+        /* ============ МОБИЛЬНАЯ ШАПКА ============ */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
             .header { padding: 8px 0; }
@@ -1232,6 +1242,7 @@
                 flex-direction: column;
                 align-items: stretch;
                 gap: 8px;
+                width: 100%;
             }
             .logo-row {
                 justify-content: center;
@@ -1263,6 +1274,7 @@
                 padding: 8px 10px;
                 border-radius: 8px;
                 font-size: 14px;
+                min-width: 0; /* Позволяет сжиматься */
             }
             .phone-link .meta small { display: none; }
 
