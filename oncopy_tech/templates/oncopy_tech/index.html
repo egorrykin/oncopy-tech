@@ -428,7 +428,6 @@
             transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Исправленный hover для темной темы */
         .brand-card:hover {
             opacity: 1;
             transform: translateY(-2px);
@@ -437,7 +436,7 @@
         }
 
         [data-theme="dark"] .brand-card:hover {
-            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2); /* Красивая подсветка для белой карточки */
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
         }
 
         .brand-card img {
@@ -1224,74 +1223,72 @@
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
         }
 
+        /* ============ МОБИЛЬНАЯ ШАПКА (ОПТИМИЗИРОВАНА) ============ */
         @media (max-width: 768px) {
             .container { padding: 0 16px; }
-            .header { padding: 10px 0; }
+            .header { padding: 8px 0; }
 
             .header-in {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 12px;
+                gap: 8px;
             }
             .logo-row {
                 justify-content: center;
-                gap: 8px;
+                gap: 6px;
             }
 
             .logo-card {
-                height: 64px;
-                padding: 8px 16px;
-                border-radius: 12px;
+                height: 40px;
+                padding: 4px 10px;
+                border-radius: 8px;
             }
-            .logo-card.oncopy img { height: 40px; }
-            .logo-card.kyocera img { height: 32px; }
-            .collab { width: 32px; height: 32px; }
-            .collab::before, .collab::after { width: 12px; }
+            .logo-card.oncopy img { height: 24px; }
+            .logo-card.kyocera img { height: 18px; }
+            .collab { display: none; }
 
             .header-cta {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
+                display: grid;
+                grid-template-columns: 1fr auto auto;
+                gap: 6px;
+                width: 100%;
                 align-items: center;
-                justify-content: center;
             }
 
             .phone-link {
-                flex: 1 1 100%;
-                justify-content: center;
+                grid-column: 1;
+                justify-content: flex-start;
                 background: var(--surface);
                 border: 1px solid var(--border-strong);
-                padding: 10px 14px;
-                border-radius: 12px;
-                font-size: 15px;
-                box-shadow: var(--shadow-sm);
+                padding: 8px 10px;
+                border-radius: 8px;
+                font-size: 14px;
             }
             .phone-link .meta small { display: none; }
 
             .theme-toggle {
-                width: 42px; height: 42px; border-radius: 12px; flex: 0 0 auto;
+                grid-column: 3;
+                width: 36px;
+                height: 36px;
+                border-radius: 8px;
             }
+            .theme-icon { width: 18px; height: 18px; }
+
             .rating-link {
-                flex: 1; flex-direction: row; align-items: center; justify-content: center; gap: 8px;
-                padding: 10px 14px; border-radius: 12px;
+                grid-column: 2;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                padding: 0 10px;
+                border-radius: 8px;
+                height: 36px;
             }
-            .rating-text { font-size: 11px; }
+            .rating-stars { font-size: 11px; }
+            .rating-text { font-size: 10px; }
+            .rating-text b { font-size: 11px; }
 
             .address-link {
-                width: 100%;
-                align-items: center;
-                text-align: center;
-                padding: 10px 14px;
-                gap: 6px;
-                border-radius: 12px;
-            }
-            .address-main { justify-content: center; font-size: 13px; }
-            .address-metro {
-                justify-content: center;
-                font-size: 11px;
-                padding-top: 4px;
-                border-top: 1px dashed var(--border);
-                width: 100%;
+                display: none;
             }
 
             .hero { padding: 30px 0 50px; }
@@ -1354,11 +1351,9 @@
         }
 
         @media (max-width: 380px) {
-            .logo-row { flex-direction: column; gap: 6px; }
             .hero h1 { font-size: 28px; }
-            .phone-link { font-size: 14px; }
-            .address-main { font-size: 12px; }
-            .address-metro { font-size: 10px; }
+            .phone-link { font-size: 13px; padding: 6px 8px; }
+            .rating-link { padding: 0 6px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
