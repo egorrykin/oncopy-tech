@@ -217,7 +217,7 @@
         .topbar-in .item { display: inline-flex; align-items: center; gap: 6px; }
         .topbar-in .item b { color: var(--text); font-weight: 700; }
 
-        /* ============ ШАПКА (ИСПРАВЛЕНА) ============ */
+        /* ============ ШАПКА ============ */
         .header {
             position: sticky; top: 0; z-index: 100;
             background: var(--header-bg);
@@ -226,12 +226,11 @@
             border-bottom: 1px solid var(--border);
             padding: 12px 0;
             width: 100%;
-            max-width: 100%;
         }
         .header-in {
             display: flex; justify-content: space-between; align-items: center;
             gap: 16px;
-            flex-wrap: nowrap; /* Жестко в одну строку */
+            flex-wrap: nowrap;
             width: 100%;
         }
 
@@ -279,8 +278,8 @@
 
         .header-cta {
             display: flex; align-items: center; gap: 14px;
-            flex-wrap: nowrap; /* Жестко в одну строку */
-            flex-shrink: 1; /* Позволяет сжиматься на средних экранах */
+            flex-wrap: nowrap;
+            flex-shrink: 1;
         }
 
         .phone-link {
@@ -644,11 +643,11 @@
         .form-response { margin-top: 10px; font-size: 13px; text-align: center; min-height: 18px; }
         .form-success { color: var(--success-text); }
 
-        /* КНОПКИ МЕССЕНДЖЕРОВ */
+        /* КНОПКИ МЕССЕНДЖЕРОВ (УВЕЛИЧЕН ОТСТУП) */
         .messengers-row {
             display: flex;
             gap: 8px;
-            margin-top: 16px;
+            margin-top: 28px; /* Увеличенный отступ от кнопки отправки */
             padding-top: 16px;
             border-top: 1px solid var(--border);
             flex-wrap: wrap;
@@ -1311,7 +1310,7 @@
             .brand-card { height: 40px; width: 90px; padding: 6px 10px; border-radius: 8px; }
             .brand-card img { max-height: 20px; }
 
-            .messengers-row { flex-direction: row; flex-wrap: wrap; }
+            .messengers-row { flex-direction: row; flex-wrap: wrap; margin-top: 20px; }
             .btn-msg { flex: 1 1 30%; }
         }
 
