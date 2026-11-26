@@ -1144,7 +1144,8 @@
                         {% csrf_token %}
                         <div class="field">
                             <label>Номер телефона</label>
-                            <input type="tel" id="phoneInput" name="phone" placeholder="+7 (___) ___-__-__" maxlength="18" required>
+                            <!-- maxlength 19 позволяет ввести на 1 символ больше для защиты от копипаста -->
+                            <input type="tel" id="phoneInput" name="phone" placeholder="+7 (___) ___-__-__" maxlength="19" required>
                         </div>
                         <div class="captcha-field">
                             <label>Подтвердите, что вы не робот</label>
@@ -1446,53 +1447,79 @@
         toast._t = setTimeout(() => toast.classList.remove('show'), 4000);
     }
 
-    // --- МАСКА ДЛЯ ТЕЛЕФОНА ---
+    // --- УЛУЧШЕННАЯ МАСКА ДЛЯ ТЕЛЕФОНА ---
     document.addEventListener("DOMContentLoaded", function() {
         const phoneInput = document.getElementById('phoneInput');
         if(!phoneInput) return;
 
-        // Ограничиваем ввод только цифрами и символами маски
         phoneInput.addEventListener('input', function(e) {
             let input = this.value.replace(/\D/g, ''); // Удаляем всё, кроме цифр
-            let formatted = '';
 
-            // Если ввели 8, меняем на 7
-            if (input.startsWith('8')) {
-                input = '7' + input.slice(1);
+            // Защита от дублирования кода страны (например, +7+7 -> 7)
+            if (input.startsWith('77') && this.value.includes('+7+7')) {
+                input = input.substring(1);
             }
-            // Если ничего не ввели, но начали стирать, ставим +7
-            if (input.length === 0) {
+
+            // Умная обработка первой цифры
+            if (input.length > 0) {
+                if (input.startsWith('8')) {
+                    input = '7' + input.slice(1);
+                } else if (input.startsWith('9')) {
+                    input = '7' + input;
+                } else if (!input.startsWith('7')) {
+                    // Если начали вводить не с 7, 8 или 9 (например, 4), принудительно ставим 7
+                    input = '7' + input;
+                }
+            } else {
                 this.value = '';
                 return;
             }
 
             // Форматирование
-            if (input.length > 0) {
-                formatted = '+7';
-                if (input.length > 1) {
-                    formatted += ' (' + input.substring(1, 4);
-                }
-                if (input.length >= 4) {
-                    formatted += ') ' + input.substring(4, 7);
-                }
-                if (input.length >= 7) {
-                    formatted += '-' + input.substring(7, 9);
-                }
-                if (input.length >= 9) {
-                    formatted += '-' + input.substring(9, 11);
-                }
+            let formatted = '+7';
+            if (input.length > 1) {
+                formatted += ' (' + input.substring(1, 4);
             }
+            if (input.length >= 4) {
+                formatted += ') ' + input.substring(4, 7);
+            }
+            if (input.length >= 7) {
+                formatted += '-' + input.substring(7, 9);
+            }
+            if (input.length >= 9) {
+                formatted += '-' + input.substring(9, 11);
+            }
+
+            // Ограничиваем длину до 19 (защита от лишнего ввода)
+            if (formatted.length > 19) {
+                formatted = formatted.slice(0, 19);
+            }
+
             this.value = formatted;
         });
 
-        // При фокусе, если пусто, ставим +7
+        // Чтобы бэкспейс не застревал на скобках и пробелах
+        phoneInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace') {
+                let val = this.value;
+                // Если курсор стоит после пробела или скобки, стираем сразу символ до них
+                if (val.endsWith(') ') || val.endsWith(' (')) {
+                    e.preventDefault();
+                    this.value = val.slice(0, -2);
+                    // Вызываем input, чтобы переформатировать
+                    this.dispatchEvent(new Event('input'));
+                }
+            }
+        });
+
+        // При фокусе ставим +7
         phoneInput.addEventListener('focus', function() {
             if (this.value === '') {
                 this.value = '+7 (';
             }
         });
 
-        // При потере фокуса, если введен только +7 (, очищаем
+        // При потере фокуса, если введена только маска, очищаем
         phoneInput.addEventListener('blur', function() {
             if (this.value === '+7 (' || this.value === '+7') {
                 this.value = '';
