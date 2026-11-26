@@ -296,8 +296,8 @@
         .hero-grid {
             display: grid;
             grid-template-columns: minmax(0, 1fr) 280px 400px;
-            gap: 30px;
-            align-items: start;
+            gap: 20px; /* Уменьшено расстояние между блоками */
+            align-items: center; /* Центрирование принтера по высоте */
         }
         .hero-left { display: flex; flex-direction: column; justify-content: flex-start; padding-top: 10px; }
 
@@ -347,7 +347,7 @@
         }
         .hstat .l { font-size: 12px; color: var(--text-3); }
 
-        .hero-printer-col { position: relative; display: flex; align-items: center; justify-content: center; min-height: 340px; padding-top: 20px; }
+        .hero-printer-col { position: relative; display: flex; align-items: center; justify-content: center; }
         .hero-printer-col::before {
             content: ''; position: absolute;
             width: 240px; height: 240px; border-radius: 50%;
@@ -819,7 +819,7 @@
         .reveal.in { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 1200px) {
-            .hero-grid { grid-template-columns: minmax(0, 1fr) 240px 380px; gap: 20px; }
+            .hero-grid { grid-template-columns: minmax(0, 1fr) 240px 380px; gap: 15px; } /* Уменьшено расстояние */
             .hero h1 { font-size: 40px; }
             .hero-printer-col img { max-width: 240px; }
             .header-in { gap: 12px; }
@@ -834,7 +834,7 @@
         }
 
         @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 20px; } /* Уменьшено расстояние для мобильных */
             .hero-left { text-align: center; display: flex; flex-direction: column; align-items: center; }
             .hero .subtitle { margin-left: auto; margin-right: auto; }
             .hero-usp { align-items: center; }
