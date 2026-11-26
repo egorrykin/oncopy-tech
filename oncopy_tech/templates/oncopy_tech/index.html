@@ -1,7 +1,7 @@
 <!-- oncopy_tech/templates/oncopy_tech/index.html -->
 <!DOCTYPE html>
 {% load static %}
-<html lang="ru" data-theme="light">
+<html lang="ru" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -12,9 +12,10 @@
         (function () {
             try {
                 var saved = localStorage.getItem('oncopy-theme');
-                document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+                // Если тема не сохранена, по умолчанию ставим dark
+                document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
             } catch (e) {
-                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'dark');
             }
         })();
     </script>
@@ -23,7 +24,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
-    <meta name="theme-color" content="#f8f9fc">
+    <meta name="theme-color" content="#141921">
 
     <!-- Preload критичных изображений -->
     <link rel="preload" as="image" href="{% static 'images/printer.png' %}" fetchpriority="high">
@@ -1144,9 +1145,9 @@
                     <span class="pulse"></span>
                     Работаем с 2010 • 15 000+ клиентов
                 </div>
-                <h1>Ремонт <span class="accent">принтеров</span></h1>
+                <h1>Ремонт <span class="accent">принтеров Kyocera</span></h1>
                 <p class="subtitle">
-                    Профессиональный сервис в Москве. Ремонт принтеров, МФУ и шредеров.
+                    Профессиональный сервис в Москве. Ремонт принтеров Kyocera, МФУ и шредеров.
                     Бесплатная диагностика, выезд мастера в день заявки, оригинальные запчасти.
                 </p>
                 <div class="hero-usp">
