@@ -12,7 +12,7 @@
         (function () {
             try {
                 var saved = localStorage.getItem('oncopy-theme');
-                // Если тема не сохранена, по умолчанию ставим dark
+                // По умолчанию ставим dark
                 document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
             } catch (e) {
                 document.documentElement.setAttribute('data-theme', 'dark');
@@ -1181,13 +1181,16 @@
                     <h3>Оставьте заявку</h3>
                     <p class="desc">Перезвоним за <b>10 минут</b>, назовём точную цену и запишем на удобное время</p>
 
-                    <form id="requestForm">
+                    <form id="requestForm" action="/api/submit/" method="POST">
+                        {% csrf_token %}
                         <div class="field">
                             <label>Номер телефона</label>
-                            <input type="tel" id="phoneInput" placeholder="+7 (___) ___-__-__" required>
+                            <input type="tel" id="phoneInput" name="phone" placeholder="+7 (___) ___-__-__" required>
                         </div>
                         <div class="captcha-field">
                             <label>Подтвердите, что вы не робот</label>
+                            <!-- Скрытое поле для токена капчи, которое будет заполнено через JS -->
+                            <input type="hidden" name="smart-token" id="smartToken" value="">
                             <div id="captcha-container" class="smart-captcha" data-sitekey="ysc1_bT2T5ZFwxRWxdyddTxDyPEANb1LXpsq9afjboS1a873cd0e7" data-hl="ru"></div>
                         </div>
                         <button type="submit" id="submitBtn" class="btn-submit">Получить бесплатную консультацию</button>
@@ -1485,27 +1488,88 @@
         toast._t = setTimeout(() => toast.classList.remove('show'), 4000);
     }
 
+    // --- РАБОЧАЯ ОТПРАВКА ФОРМЫ ---
     const form = document.getElementById('requestForm');
     if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Отменяем стандартную отправку
+
             const phone = document.getElementById('phoneInput').value.trim();
+            const captchaToken = document.getElementById('smartToken').value;
+
             if (phone.length < 10) {
                 showToast('Введите корректный номер телефона', 'error');
                 return;
             }
+
             const btn = document.getElementById('submitBtn');
+            const originalText = btn.textContent;
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner"></span> Отправка...';
-            setTimeout(() => {
+
+            // Собираем данные формы (включая CSRF токен, телефон и токен капчи)
+            const formData = new FormData(form);
+
+            try {
+                // Отправляем запрос на ваш Django-эндпоинт
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest' // Указываем, что это AJAX
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Успех
+                    document.getElementById('formStatus').innerHTML = '<span class="form-success">Заявка принята! Перезвоним в течение 10 минут.</span>';
+                    showToast('Заявка успешно отправлена!');
+                    form.reset(); // Очищаем форму
+
+                    // Сбрасываем капчу (если виджет это поддерживает)
+                    if (window.smartCaptcha) {
+                        const captchaWidget = document.querySelector('.smart-captcha');
+                        // Метод сброса зависит от версии API капчи, часто достаточно перезагрузить виджет
+                        // или очистить скрытое поле.
+                        document.getElementById('smartToken').value = '';
+                    }
+
+                } else {
+                    // Ошибка от бэкенда (например, капча не пройдена)
+                    throw new Error(data.error || 'Произошла ошибка при отправке');
+                }
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('formStatus').innerHTML = '<span style="color:#ef4444; font-size:12px;">' + error.message + '</span>';
+                showToast(error.message, 'error');
+            } finally {
+                // Возвращаем кнопку в исходное состояние
                 btn.disabled = false;
-                btn.textContent = 'Получить бесплатную консультацию';
-                document.getElementById('formStatus').innerHTML = '<span class="form-success">Заявка принята! Перезвоним в течение 10 минут.</span>';
-                showToast('Заявка успешно отправлена!');
-                form.reset();
-            }, 900);
+                btn.textContent = originalText;
+            }
         });
     }
+</script>
+
+<!-- Скрипт для связывания Yandex SmartCaptcha с нашим скрытым полем -->
+<script>
+    window.onload = function() {
+        // Ждем загрузки капчи
+        if (window.smartCaptcha) {
+            // Инициализируем капчу с коллбэком
+            const widgetId = window.smartCaptcha.render('captcha-container', {
+                sitekey: 'ysc1_bT2T5ZFwxRWxdyddTxDyPEANb1LXpsq9afjboS1a873cd0e7',
+                hl: 'ru',
+                callback: function(token) {
+                    // Когда пользователь прошел капчу, сохраняем токен в скрытое поле
+                    document.getElementById('smartToken').value = token;
+                }
+            });
+        }
+    };
 </script>
 </body>
 </html>
